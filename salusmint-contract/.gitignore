@@ -1,0 +1,33 @@
+node_modules
+.env
+.openzeppelin
+coverage
+coverage.json
+typechain
+typechain-types
+
+#Hardhat files
+cache
+../.DS_Store
+*/.DS_Store
+.DS_Store
+
+# local env files
+.env*.local
+
+#artifacts
+artifacts
+*/artifacts
+
+#foundry
+forge-cache/
+out/
+
+# .openzeppelin
+.openzeppelin
+.vscode
+
+# doc
+docs/
+/docs/
+.docs/
