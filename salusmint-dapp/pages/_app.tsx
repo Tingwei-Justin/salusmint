@@ -18,7 +18,7 @@ const { provider, webSocketProvider, chains } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'IP3',
+  appName: 'Salus Mint',
   chains,
 })
 

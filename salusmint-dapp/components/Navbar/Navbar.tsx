@@ -51,7 +51,7 @@ export default function Example() {
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt="Your Company"
                   />
-                  <div className="px-2 text-xl">SmartMint</div>
+                  <div className="px-2 text-xl">SalusMint</div>
                 </div>
               </div>
               <div className="relative z-10 flex items-center lg:hidden">
