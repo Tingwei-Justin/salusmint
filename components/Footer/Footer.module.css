@@ -1,0 +1,13 @@
+.root {
+  @apply border-accent-2 border-t bg-[#1c1c1c];
+}
+
+.link {
+  & > svg {
+    @apply transform duration-75 ease-linear;
+  }
+
+  &:hover > svg {
+    @apply scale-110;
+  }
+}
