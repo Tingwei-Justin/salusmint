@@ -36,26 +36,26 @@ def underwrite(huma_pool, **kwargs):
     
     # your code here
     
-    signal_names = [
-        "ethereum_wallet.total_transactions",
-        "ethereum_wallet.total_sent",
-        "ethereum_wallet.total_received",
-        "ethereum_wallet.wallet_teneur_in_days",
-        "ethereum_wallet.total_income_90days",
-        "ethereum_wallet.total_transactions_90days"
-        ]
+    # signal_names = [
+    #     "ethereum_wallet.total_transactions",
+    #     "ethereum_wallet.total_sent",
+    #     "ethereum_wallet.total_received",
+    #     "ethereum_wallet.wallet_teneur_in_days",
+    #     "ethereum_wallet.total_income_90days",
+    #     "ethereum_wallet.total_transactions_90days"
+    #     ]
     
-    adapter_inputs = {"borrower_wallet_address": borrower_wallet_address}
+    # adapter_inputs = {"borrower_wallet_address": borrower_wallet_address}
 
-    signals = fetch_signal(signal_names, adapter_inputs)
-    if signals.get('ethereum_wallet.wallet_teneur_in_days') >= 365:
-        result = {
-            "creditLimit": int(100*10**6),
-            "intervalInDays": 30,
-            "remainingPeriods": 12,
-            "aprInBps": 0
-        }
-    else:
-        raise Exception("accountTooNew")
+    # signals = fetch_signal(signal_names, adapter_inputs)
+    # if signals.get('ethereum_wallet.wallet_teneur_in_days') >= 365:
+    #     result = {
+    #         "creditLimit": int(100*10**6),
+    #         "intervalInDays": 30,
+    #         "remainingPeriods": 12,
+    #         "aprInBps": 0
+    #     }
+    # else:
+    #     raise Exception("accountTooNew")
     
     return result  # noqa
