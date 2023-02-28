@@ -12,17 +12,10 @@
   }
   ```
 */
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
 const navigation = [
   { name: 'Home', href: '/home', current: true },
   { name: 'New Contract', href: '/new', current: false },
@@ -42,9 +35,9 @@ export default function Example() {
     <Disclosure as="header" className="shadow bg-white">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
-            <div className="relative flex h-16 justify-between">
-              <div className="relative z-10 flex px-2 lg:px-0">
+          <div className="mx-auto w-full">
+            <div className="relative flex h-16 justify-between border-b border-black px-8">
+              <div className="relative z-10 flex">
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="block h-8 w-auto"
@@ -69,8 +62,9 @@ export default function Example() {
                 <ConnectButton />
               </div>
             </div>
-            <nav
-              className="hidden lg:flex lg:space-x-8 lg:py-2"
+
+            {/* <nav
+              className="hidden lg:flex lg:space-x-8 lg:py-2 "
               aria-label="Global"
             >
               {navigation.map((item) => (
@@ -88,7 +82,7 @@ export default function Example() {
                   {item.name}
                 </a>
               ))}
-            </nav>
+            </nav> */}
           </div>
 
           <Disclosure.Panel as="nav" className="lg:hidden" aria-label="Global">

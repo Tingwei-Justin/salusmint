@@ -6,6 +6,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      content: ['Asap', 'sans-serif'],
+    },
     boxShadow: {
       sm: '0 2px 6px rgb(15 23 42 / 0.08)',
       md: '0 8px 8px rgb(15 23 42 / 0.05), 0 3px 6px rgb(15 23 42 / 0.05)',

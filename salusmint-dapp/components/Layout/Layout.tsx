@@ -31,7 +31,15 @@ const Layout: React.FC<Props> = ({ children, pageProps }) => {
   return (
     <div className={cn(s.root)}>
       <Navbar />
-      <main className="fit flex min-h-[80vh] w-screen justify-center">
+      <div className="h-4 w-full border-b border-black" />
+      <main className="fit relative flex min-h-[80vh] w-screen justify-center font-content">
+        <div className="absolute left-4 -top-4 h-4 border-r border-black" />
+        <div className="absolute left-0 -top-4 h-4 w-4 bg-black" />
+        <div className="absolute left-4 h-full border-l border-black" />
+
+        <div className="absolute right-4 -top-4 h-4 border-l border-black" />
+        <div className="absolute right-0 -top-4 h-4 w-4 bg-black" />
+        <div className="absolute right-4 h-full border-l border-black" />
         {children}
       </main>
       <Footer />
