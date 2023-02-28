@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/interfaces/IERC4626.sol";
 
 contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
     
@@ -13,7 +14,8 @@ contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
     uint256 public constant DECIMALS = 10**6;
 
     address public manager;
-
+    
+    IERC4626 public vaultAddress;
     IERC20 stableCoinAddress;
 
     using Counters for Counters.Counter;
@@ -22,9 +24,14 @@ contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
 
     uint256 public mintPrice;
 
-    constructor(string memory _name, string memory _symbol, IERC20 _stableCoinAddress) ERC721(_name, _symbol) {
+
+
+
+    constructor(string memory _name, string memory _symbol, IERC20 _stableCoinAddress, IERC4626 _vaultAddress) ERC721(_name, _symbol) {
         manager = msg.sender;
         stableCoinAddress = _stableCoinAddress;
+        vaultAddress = _vaultAddress;
+
         mintPrice = 1 * DECIMALS;
     }
     
@@ -42,7 +49,8 @@ contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
             "NOT SUFFICIENT BAL"
         );        
         
-        IERC20(stableCoinAddress).transferFrom(msg.sender, address(this), mintPrice);
+        // IERC20(stableCoinAddress).transferFrom(msg.sender, address(this), mintPrice);
+        IERC4626(vaultAddress).deposit(payAmount, address(vaultAddress));
 
         safeMint(msg.sender);
 
