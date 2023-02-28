@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 import requests
-import config
+
 
 def fetch_signal(signal_names: List[str], adapter_inputs: Dict[str, Any]) -> Dict[str, Any]:
    """Fetch signals from the decentralized signal portfolio service.

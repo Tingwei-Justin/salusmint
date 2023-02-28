@@ -2,12 +2,12 @@ import json
 
 from web3 import HTTPProvider, Web3
 from web3.middleware import geth_poa_middleware
+from dotenv import load_dotenv
 
-import config
 
 class HumaPool:
     def __init__(self, pool_address):
-        self.signer = Web3.toChecksumAddress(config.ea)
+        self.signer = Web3.toChecksumAddress(load_dotenv().ea)
         self.pool_address = Web3.toChecksumAddress(pool_address)
         with open("abi/BaseCreditPool.json") as f:
             self.abi = json.load(f)
@@ -26,7 +26,7 @@ class HumaPool:
             {"from": self.signer, "nonce": nonce}
         )
 
-        signed_txn = self.w3.eth.account.sign_transaction(post_txn, private_key=config.ea_key)
+        signed_txn = self.w3.eth.account.sign_transaction(post_txn, private_key=load_dotenv().ea_key)
         txn_hash = self.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
         txn_receipt = self.w3.eth.wait_for_transaction_receipt(txn_hash)
         if txn_receipt["status"]:
