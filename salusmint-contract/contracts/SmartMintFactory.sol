@@ -11,7 +11,7 @@ import "./SmartMintNFT.sol";
 
 /// IERC20
 /// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/ERC4626.sol
-contract SmartMint is Ownable {
+contract SmartMintFactory is Ownable {
 
     event NFTCreated(address indexed nftAddress, string name, string symbol);
     
@@ -26,7 +26,7 @@ contract SmartMint is Ownable {
 
 
     // create ERC721 contract 
-    function createNFT(string memory _name, string memory _symbol, IERC20 _stableCoinAddress) internal returns (address nftAddress) {
+    function createNFT(string memory _name, string memory _symbol, IERC20 _stableCoinAddress) external returns (address nftAddress) {
         SmartMintNFT smartNFT = new SmartMintNFT(_name, _symbol, _stableCoinAddress);
 
         emit NFTCreated(address(smartNFT), _name, _symbol);
