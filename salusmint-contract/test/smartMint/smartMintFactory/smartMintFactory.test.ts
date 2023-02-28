@@ -4,6 +4,9 @@ import { ethers, upgrades, artifacts } from "hardhat";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { BigNumber, Contract } from "ethers";
 
+
+
+
 describe("SmartMint factory contract", async function () {
   let smartMintFactoryContract: Contract;
   let tokenContract: Contract;
@@ -34,14 +37,30 @@ describe("SmartMint factory contract", async function () {
 
   //   tokenContract = await Token.deploy(owner.address);
   it("it SHOULD create new ERC721 contract succeesful", async function () {
-    
-    const name = "TestNFT";
-    const symbol = "tNFT";
+//     struct InitNFTInput {
+//       string name;
+//       string symbol;
+//       IERC20 depositToken;
+//  }
+
+//   struct CreateVaultInput{
+//       string name;
+//       string symbol; 
+//       IERC20 depositToken;
+//   }
+  
+    const nftName = "TestNFT";
+    const nftSymbol = "tNFT";
     const ercTokenAddress = tokenContract.address;
-    const tx = await smartMintFactoryContract.connect(owner).createNFT(name, symbol, ercTokenAddress);
+    const initNFTInpu = [nftName, nftSymbol, ercTokenAddress];
+
+    const vaultName = "TestVault";
+    const vaultSymbol = "TV";
+    const createVaultInput = [vaultName, vaultSymbol, ercTokenAddress];
+    const tx = await smartMintFactoryContract.connect(owner).createSalusNFTPool(initNFTInpu, createVaultInput);
     const receipt = await tx.wait();
 
-    console.log("tx: ", receipt.events[1].args.nftAddress);
+    console.log("tx: ", receipt);
 
 });
 

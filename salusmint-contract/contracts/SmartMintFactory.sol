@@ -19,6 +19,7 @@ contract SmartMintFactory is Ownable {
     event VaultCreated(address indexed smartMintVault, string name, string symbol);
     
     string public constant name = "SmartMint_ETHDenver2023";
+
     
     struct CreateNFTInput {
         string name;
@@ -27,10 +28,16 @@ contract SmartMintFactory is Ownable {
         IERC4626 vaultAddress;
     }
 
+   struct InitNFTInput {
+        string name;
+        string symbol;
+        IERC20 depositToken;
+   }
+
     struct CreateVaultInput{
-        IERC20 tokenAddress;
         string name;
         string symbol; 
+        IERC20 depositToken;
     }
     
     /// constructor init https://forum.openzeppelin.com/t/openzeppelin-erc4626-implementation/31589
@@ -38,8 +45,18 @@ contract SmartMintFactory is Ownable {
         
     }
 
-    function createSalusNFTPool(CreateNFTInput memory reateNFTInput) returns(address) {
-        
+    function createSalusNFTPool(InitNFTInput memory initNFTInput, CreateVaultInput memory createVaultInput) public returns(address[] memory) {
+        address[] memory retAddress = new address[] (2);
+        // first create vault 
+        address vaultAddress = createVault(createVaultInput.name, createVaultInput.symbol, createVaultInput.depositToken);
+        retAddress[0] = vaultAddress;
+
+        // create NFT contract
+        address nftAddress = createNFT(initNFTInput.name, initNFTInput.symbol, initNFTInput.depositToken, IERC4626(vaultAddress));
+        retAddress[1]= nftAddress;
+
+        return retAddress;
+
     }
 
     /// create ERC721 contract 
@@ -52,7 +69,7 @@ contract SmartMintFactory is Ownable {
     }
 
     /// create ERC4626 contract
-    function createVault(IERC20 _stableCoinAddress, string memory _name,  string memory _symbol) internal returns (address) {
+    function createVault(string memory _name,  string memory _symbol, IERC20 _stableCoinAddress) internal returns (address) {
         // IERC20 _address, string memory _name, string memory _symbol
         SmartMintVault smartMintVault = new SmartMintVault(_stableCoinAddress, _name, _symbol);
 
