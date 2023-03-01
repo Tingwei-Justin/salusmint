@@ -10,7 +10,9 @@ async function main() {
   const name = "testNFT"
   const symbol = "tNFT"
   const tokenContractAddress = "0x37766f6B66B5e17320B06b8c84480d1C4020caCd";
-  const smartMintNFTContract = await SmartMintNFT.deploy(name, symbol, tokenContractAddress);
+
+  const creatorAddr = "0x66c07c21831af91a47F3447338Dd9D95c97eb9c5";
+  const smartMintNFTContract = await SmartMintNFT.deploy(name, symbol, tokenContractAddress, creatorAddr);
 
   await smartMintNFTContract.deployed();
   console.log(smartMintNFTContract.address, "smartMintNFTContract address");

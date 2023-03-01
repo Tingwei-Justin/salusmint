@@ -27,7 +27,7 @@ module.exports = {
     tokenOwner: 2,
     purchaser1: 3,
     purchaser2: 4,
-    nftAuthroizer1: 5,
+    creatorAddress1: 5,
     nftAuthroizer2: 6,
     sigSinger1: 7,
     sigSinger2: 8,

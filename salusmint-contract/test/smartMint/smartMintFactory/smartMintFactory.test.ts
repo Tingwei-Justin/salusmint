@@ -5,8 +5,6 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { BigNumber, Contract } from "ethers";
 
 
-
-
 describe("SmartMint factory contract", async function () {
   let smartMintFactoryContract: Contract;
   let tokenContract: Contract;
@@ -37,22 +35,12 @@ describe("SmartMint factory contract", async function () {
 
   //   tokenContract = await Token.deploy(owner.address);
   it("it SHOULD create new ERC721 contract succeesful", async function () {
-//     struct InitNFTInput {
-//       string name;
-//       string symbol;
-//       IERC20 depositToken;
-//  }
 
-//   struct CreateVaultInput{
-//       string name;
-//       string symbol; 
-//       IERC20 depositToken;
-//   }
   
     const nftName = "TestNFT";
     const nftSymbol = "tNFT";
     const ercTokenAddress = tokenContract.address;
-    const initNFTInpu = [nftName, nftSymbol, ercTokenAddress];
+    const initNFTInput = [nftName, nftSymbol, ercTokenAddress];
 
     const vaultName = "TestVault";
     const vaultSymbol = "TV";
