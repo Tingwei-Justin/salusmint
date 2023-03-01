@@ -53,27 +53,27 @@ const needle = (
 
 function HealthIndicatorChart() {
   return (
-    // <ResponsiveContainer width="100%" height="100%">
-    <PieChart width={300} height={200}>
-      <Pie
-        dataKey="value"
-        startAngle={180}
-        endAngle={0}
-        data={healthIndicatorData}
-        cx={cx}
-        cy={cy}
-        innerRadius={iR}
-        outerRadius={oR}
-        fill="#8884d8"
-        stroke="none"
-      >
-        {healthIndicatorData.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={entry.color} />
-        ))}
-      </Pie>
-      {needle(value, healthIndicatorData, cx, cy, iR, oR, '#d0d000')}
-    </PieChart>
-    // </ResponsiveContainer>
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart width={150} height={100}>
+        <Pie
+          dataKey="value"
+          startAngle={180}
+          endAngle={0}
+          data={healthIndicatorData}
+          cx={cx}
+          cy={cy}
+          innerRadius={iR}
+          outerRadius={oR}
+          fill="#8884d8"
+          stroke="none"
+        >
+          {healthIndicatorData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color} />
+          ))}
+        </Pie>
+        {needle(value, healthIndicatorData, cx, cy, iR, oR, '#d0d000')}
+      </PieChart>
+    </ResponsiveContainer>
   )
 }
 

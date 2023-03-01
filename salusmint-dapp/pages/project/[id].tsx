@@ -4,6 +4,9 @@ import dynamic from 'next/dynamic'
 import { Badge, Card } from '@nextui-org/react'
 import BorrowSection from '@components/Borrow/BorrowSection'
 import BurnSection from '@components/Burn/BurnSection'
+import Marquee from 'react-fast-marquee'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const HealthIndicatorChart = dynamic(
   () => import('@components/Chart/HealthIndicatorChart'),
@@ -85,14 +88,36 @@ function ProjectPage() {
               thought to have scrambled parts of Cicero De Finibus Bonorum et
               Malorum for use in a type specimen book. It usually begins with:
             </div>
+
+            <div className="py-4 text-xl font-semibold">
+              <Link className="p-4 text-black" href="/project/demo/mint">
+                MINT NOW
+              </Link>
+            </div>
+
+            <div className="p-4">
+              <Marquee>
+                {[...Array(17)].map((i, idx) => (
+                  <Image
+                    key="idx"
+                    src={`/demo-collection/Group ${idx + 1}.png`}
+                    className="rounded-lg object-contain px-2"
+                    width={150}
+                    height={150}
+                    alt="nft"
+                  />
+                ))}
+              </Marquee>
+            </div>
             <div className="w-full border-2 border-black" />
+
             <div className="w-full">
               <div className="px-4 py-2 text-xl font-bold">
                 Health Indicator
               </div>
               <div className="w-full border-b-2 border-black" />
-              <div className="flex w-full flex-col items-center justify-center">
-                <div className="flex h-60 w-full items-center justify-center">
+              <div className="flex w-full items-center">
+                <div className="flex h-60 w-3/4 items-center justify-center">
                   <HealthIndicatorChart />
                 </div>
                 <div className="px-4">
