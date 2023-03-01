@@ -3,6 +3,13 @@ import Layout from '@components/Layout'
 import { Button, Dropdown, Input, Text } from '@nextui-org/react'
 import Image from 'next/image'
 import { Slider } from '@mui/material'
+import { useContractWrite } from 'wagmi'
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
+import { salusMintProtocolAbi } from '@config/abi'
+import { ethers } from 'ethers'
+import { useRouter } from 'next/router'
+import { USDCAddress } from '@config/constant'
 
 const helpInfo = {
   'contract-name': {
@@ -59,6 +66,31 @@ const supportYields = {
 }
 
 export default function NewContractPage() {
+  const [nftAddress, setNftAddress] = useState('')
+  const [vaultAddress, setVaultAddress] = useState('')
+  const { push } = useRouter()
+  const { width, height } = useWindowSize()
+  const [showConfetti, setShowConfetti] = useState(false)
+  const initNFTInput = [
+    'ETHDenverDemo',
+    'eth-denver',
+    USDCAddress,
+    '0x976EA74026E726554dB657fA54763abd0C3a0aa9', // creator1Address,
+  ]
+  const createVaultInput = ['testVault', 'TV', USDCAddress]
+
+  const deployContractWriteConfig = {
+    mode: 'recklesslyUnprepared',
+    address: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
+    chainId: 31337,
+    abi: salusMintProtocolAbi,
+    functionName: 'createSalusNFTPool',
+    args: [initNFTInput, createVaultInput],
+  }
+  const { writeAsync: deployContractFun } = useContractWrite(
+    deployContractWriteConfig
+  )
+
   const [selectedYield, setSelectedYield] = useState(new Set())
   const [selectedHelpInfo, setSelectedHelpInfo] = useState<{
     title: string
@@ -77,8 +109,33 @@ export default function NewContractPage() {
     setCreatorSharePercent(creatorsPercent)
     setHoldersharePercent(holdersPercent)
   }
+
+  async function deployContract() {
+    const deployTx = await deployContractFun()
+    const deployResult = await deployTx.wait()
+    const nftAddress = `0x${deployResult.logs[2].topics[1].slice(-40)}`
+    const vaultAddress = `0x${deployResult.logs[2].topics[2].slice(-40)}`
+
+    console.log('nftAddress', nftAddress)
+    console.log('vaultAddress', vaultAddress)
+
+    setNftAddress(nftAddress)
+    setVaultAddress(vaultAddress)
+
+    if (
+      ethers.utils.isAddress(nftAddress) &&
+      ethers.utils.isAddress(vaultAddress)
+    ) {
+      setShowConfetti(true)
+      // setTimeout(() => {
+      //   setShowConfetti(false)
+      // }, 10000)
+    }
+  }
+
   return (
     <div className="container flex w-full justify-center">
+      <Confetti width={2000} height={2000} run={showConfetti} />
       <div className="w-full max-w-7xl py-10">
         <div className=" border-2 border-black">
           {/* Header */}
@@ -198,9 +255,24 @@ export default function NewContractPage() {
                 </div>
               </div>
 
-              <button className="flex w-52 items-center justify-center border border-black py-2 font-semibold hover:scale-105 hover:cursor-pointer">
-                Deploy
-              </button>
+              {ethers.utils.isAddress(nftAddress) &&
+              ethers.utils.isAddress(vaultAddress) ? (
+                <button
+                  className="flex w-52 items-center justify-center border border-black py-2 font-semibold hover:scale-105 hover:cursor-pointer"
+                  onClick={() =>
+                    push(`/project/${nftAddress}?vaultAddress=${vaultAddress}`)
+                  }
+                >
+                  Check your NFT collection
+                </button>
+              ) : (
+                <button
+                  onClick={deployContract}
+                  className="flex w-52 items-center justify-center border border-black py-2 font-semibold hover:scale-105 hover:cursor-pointer"
+                >
+                  Deploy
+                </button>
+              )}
             </div>
 
             <div className="w-2/5 p-4">

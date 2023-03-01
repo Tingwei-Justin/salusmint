@@ -7,6 +7,8 @@ import BurnSection from '@components/Burn/BurnSection'
 import Marquee from 'react-fast-marquee'
 import Image from 'next/image'
 import Link from 'next/link'
+import { GetServerSidePropsContext } from 'next'
+import { useRouter } from 'next/router'
 
 const HealthIndicatorChart = dynamic(
   () => import('@components/Chart/HealthIndicatorChart'),
@@ -20,6 +22,9 @@ const NFTVaultChart = dynamic(() => import('@components/Chart/NFTVaultChart'), {
 })
 
 function ProjectPage() {
+  const router = useRouter()
+  const { id: nftAddress } = router.query
+  console.log(nftAddress)
   const data = [
     {
       name: '2022-06-02',
@@ -90,7 +95,10 @@ function ProjectPage() {
             </div>
 
             <div className="py-4 text-xl font-semibold">
-              <Link className="p-4 text-black" href="/project/demo/mint">
+              <Link
+                className="p-4 text-black"
+                href={`/project/${nftAddress}/mint`}
+              >
                 MINT NOW
               </Link>
             </div>
@@ -99,7 +107,7 @@ function ProjectPage() {
               <Marquee>
                 {[...Array(17)].map((i, idx) => (
                   <Image
-                    key="idx"
+                    key={idx}
                     src={`/demo-collection/Group ${idx + 1}.png`}
                     className="rounded-lg object-contain px-2"
                     width={150}
