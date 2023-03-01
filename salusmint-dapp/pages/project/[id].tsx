@@ -1,17 +1,20 @@
 import React from 'react'
 import Layout from '@components/Layout'
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from 'recharts'
+import dynamic from 'next/dynamic'
+import { Badge, Card } from '@nextui-org/react'
+import BorrowSection from '@components/Borrow/BorrowSection'
+import BurnSection from '@components/Burn/BurnSection'
+
+const HealthIndicatorChart = dynamic(
+  () => import('@components/Chart/HealthIndicatorChart'),
+  {
+    ssr: false,
+  }
+)
+
+const NFTVaultChart = dynamic(() => import('@components/Chart/NFTVaultChart'), {
+  ssr: false,
+})
 
 function ProjectPage() {
   const data = [
@@ -59,47 +62,6 @@ function ProjectPage() {
     },
   ]
 
-  const RADIAN = Math.PI / 180
-  const healthIndicatorData = [
-    { name: 'A', value: 33, color: '#ff0000' },
-    { name: 'B', value: 33, color: '#FF9933' },
-    { name: 'C', value: 33, color: '#00ff00' },
-  ]
-  const cx = 150
-  const cy = 200
-  const iR = 50
-  const oR = 100
-  const value = 50
-
-  const needle = (value, data, cx, cy, iR, oR, color) => {
-    let total = 0
-    data.forEach((v) => {
-      total += v.value
-    })
-    const ang = 180.0 * (1 - value / total)
-    const length = (iR + 2 * oR) / 3
-    const sin = Math.sin(-RADIAN * ang)
-    const cos = Math.cos(-RADIAN * ang)
-    const r = 5
-    const x0 = cx + 5
-    const y0 = cy + 5
-    const xba = x0 + r * sin
-    const yba = y0 - r * cos
-    const xbb = x0 - r * sin
-    const ybb = y0 + r * cos
-    const xp = x0 + length * cos
-    const yp = y0 + length * sin
-
-    return [
-      <circle cx={x0} cy={y0} r={r} fill={color} stroke="none" key={'1'} />,
-      <path
-        d={`M${xba},${yba}L${xbb},${ybb},L${xp},${yp},L${xba},${yba}`}
-        stroke="#none"
-        fill={color}
-        key={'2'}
-      />,
-    ]
-  }
   return (
     <div className="flex w-full justify-center px-4">
       <div className="h-full w-full">
@@ -129,34 +91,23 @@ function ProjectPage() {
                 Health Indicator
               </div>
               <div className="w-full border-b-2 border-black" />
-              <div className="flex w-full items-center justify-center">
-                <PieChart width={400} height={500}>
-                  <Pie
-                    dataKey="value"
-                    startAngle={180}
-                    endAngle={0}
-                    data={healthIndicatorData}
-                    cx={cx}
-                    cy={cy}
-                    innerRadius={iR}
-                    outerRadius={oR}
-                    fill="#8884d8"
-                    stroke="none"
-                  >
-                    {healthIndicatorData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  {needle(
-                    value,
-                    healthIndicatorData,
-                    cx,
-                    cy,
-                    iR,
-                    oR,
-                    '#d0d000'
-                  )}
-                </PieChart>
+              <div className="flex w-full flex-col items-center justify-center">
+                <div className="flex h-60 w-full items-center justify-center">
+                  <HealthIndicatorChart />
+                </div>
+                <div className="px-4">
+                  <Card isHoverable variant="bordered" css={{ mw: '300px' }}>
+                    <Card.Body>
+                      <div className="flex items-center justify-center gap-2 text-lg">
+                        <span className="font-bold"> Score:</span>
+                        <span>78</span>
+                        <Badge isSquared color="success" size={'xs'}>
+                          <span className="text-sm tracking-wider">Good</span>
+                        </Badge>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </div>
               </div>
             </div>
           </div>
@@ -164,56 +115,17 @@ function ProjectPage() {
           <div className="relative h-full w-2/3 overflow-hidden">
             <div className="absolute -top-4 -left-4 h-4 w-8 bg-black" />
             <div className="relative flex h-[45vh] w-full justify-center border-b border-black pt-6">
-              <ResponsiveContainer width="80%" height="80%">
-                <AreaChart
-                  width={500}
-                  height={400}
-                  data={data}
-                  margin={{
-                    top: 10,
-                    right: 30,
-                    left: 0,
-                    bottom: 0,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    dataKey="uv"
-                    stackId="1"
-                    stroke="#8884d8"
-                    fill="#8884d8"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="pv"
-                    stackId="1"
-                    stroke="#82ca9d"
-                    fill="#82ca9d"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="amt"
-                    stackId="1"
-                    stroke="#ffc658"
-                    fill="#ffc658"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
+              <NFTVaultChart data={data} />
               <div className="absolute bottom-4 w-full text-center text-xl font-bold">
                 NFT VAULT
               </div>
             </div>
             <div className="flex h-full w-full divide-x divide-black">
-              <div className="relative h-[40vh] w-1/2">
-                <div className="absolute bottom-4 left-4 text-xl font-bold">
-                  Borrow
-                </div>
+              <div className="relative flex h-[40vh] w-1/2 flex-col items-center justify-center gap-6">
+                <BorrowSection />
               </div>
-              <div className="relative h-[40vh] w-1/2">
+              <div className="relative flex h-[40vh] w-1/2 flex-col items-center justify-center gap-6">
+                <BurnSection />
                 <div className="absolute bottom-4 left-4 text-xl font-bold">
                   Burn
                 </div>

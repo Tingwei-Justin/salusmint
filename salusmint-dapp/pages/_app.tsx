@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { createClient, configureChains, WagmiConfig } from 'wagmi'
-import { mainnet, goerli } from 'wagmi/chains'
+import { mainnet, goerli, hardhat } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
@@ -10,7 +10,7 @@ import { theme } from '../constant/config'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 const { provider, webSocketProvider, chains } = configureChains(
-  [mainnet, goerli],
+  [hardhat],
   [
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID ?? '' }),
     publicProvider(),
