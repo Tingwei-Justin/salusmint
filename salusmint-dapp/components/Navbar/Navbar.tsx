@@ -15,6 +15,8 @@
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const navigation = [
   { name: 'Home', href: '/home', current: true },
@@ -37,16 +39,17 @@ export default function Example() {
         <>
           <div className="mx-auto w-full">
             <div className="relative flex h-16 justify-between border-b border-black px-8">
-              <div className="relative z-10 flex">
+              <Link className="relative z-10 flex  text-black" href="/">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto"
+                  {/* <Image
+                    width={10}
+                    height={10}
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt="Your Company"
-                  />
+                  /> */}
                   <div className="px-2 text-xl">SalusMint</div>
                 </div>
-              </div>
+              </Link>
               <div className="relative z-10 flex items-center lg:hidden">
                 {/* Mobile menu button */}
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
