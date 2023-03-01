@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import fs from 'fs';
 
 async function main() {
 
@@ -23,7 +24,15 @@ async function main() {
    
    await smartMintFactoryContract.deployed();
    console.log("smartMintFactoryContract address", smartMintFactoryContract.address);
+  
 
+  
+
+  const data = { erc20TokenConract: erc20TokenConract.address, smartMintFactoryContract: smartMintFactoryContract.address };
+  const json = JSON.stringify(data);
+  const filePath = 'data.json';
+  
+  fs.writeFileSync(filePath, json);
    
 } 
 

@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import fs from 'fs';
 
 import SmartMintFactoryJson from "../artifacts/contracts/SmartMintFactory.sol/SmartMintFactory.json";
 
@@ -12,12 +13,15 @@ const erc20TokenJsonAbi = erc20TokenJson.abi;
 async function main() {
   
     const [signer, creator1] = await ethers.getSigners();
-  
+
+    const filePath = 'data.json';
+    const json = fs.readFileSync(filePath, 'utf-8');
+    const data = JSON.parse(json);
     
-    const erc20TokenAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3"; // erc20 token contract address
+    const erc20TokenAddress = data.erc20TokenConract; // erc20 token contract address
 
 
-    const smartMintFactoryAddress = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"; // placeholder   
+    const smartMintFactoryAddress = data.smartMintFactoryContract; // placeholder   
     const smartMintFactoryContract = new ethers.Contract(smartMintFactoryAddress, smartMintFactoryJsonAbi, signer);
    
     // create nft info
@@ -40,8 +44,9 @@ async function main() {
 
 
     const tx = await smartMintFactoryContract.connect(signer).createSalusNFTPool(initNFTInput, createVaultInput);
-  
-    console.log("upgradeVersion tx: ", tx);
+    const event = await tx.wait();
+
+    console.log("createSalusNFTPool tx: ", event.events);
   }
   
   main()
