@@ -65,17 +65,12 @@ contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
         // );
 
         // IERC20(stableCoinAddress).transferFrom(msg.sender, address(this), mintPrice);
-        //   function deposit(uint256 assets, address receiver) public virtual override returns (uint256) {
-        SmartMintVaultInterface(vaultAddress).deposit(
-            msg.sender,
-            creatorFee,
-            creator
-        );
+        //   function deposit(uint256 assets, address receiver) public virtual override returns (uint256) 
 
         SmartMintVaultInterface(vaultAddress).deposit(
             msg.sender,
-            payAmount - creatorFee,
-            msg.sender
+            payAmount,
+            address(this)
         );
 
         safeMint(msg.sender);

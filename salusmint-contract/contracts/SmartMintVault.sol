@@ -19,11 +19,20 @@ contract SmartMintVault is ERC4626, Ownable {
     }
 
     /** @dev See {IERC4626-deposit}. */
-    function deposit(address depositor, uint256 assets, address receiver) public returns (uint256) {
-        require(assets <= maxDeposit(receiver), "ERC4626: deposit more than max");
+    function deposit(
+        address depositor,
+        uint256 assets,
+        address receiver
+    ) public returns (uint256) {
+        require(
+            assets <= maxDeposit(receiver),
+            "ERC4626: deposit more than max"
+        );
 
         uint256 shares = previewDeposit(assets);
         _deposit(depositor, receiver, assets, shares);
+
+        emit Deposit(depositor, receiver, assets, shares);
 
         return shares;
     }
