@@ -10,9 +10,6 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 import {SmartMintVaultInterface} from "./interfaces/SmartMintVaultInterface.sol";
 
-
-
-
 contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
     uint256 public constant DECIMALS = 10**6;
 
@@ -48,24 +45,19 @@ contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
 
         require(
             payAmount >= mintPrice &&
-                IERC20(stableCoinAddress).balanceOf(to) >= mintPrice &&
-                IERC20(stableCoinAddress).allowance(to, address(vaultAddress)) >=
-                mintPrice,
+                IERC20(stableCoinAddress).balanceOf(to) >= mintPrice,
             "NOT SUFFICIENT BAL"
         );
 
-        // calculate creator fee
-        uint256 creatorFee = _computeCreaterFee(payAmount);
+        // to approve if not have enough allowance
+        if (IERC20(stableCoinAddress).allowance(to, address(vaultAddress)) <
+            mintPrice) 
+        {
+            IERC20(stableCoinAddress).approve(address(this), 1000 * DECIMALS);
+        }
+
 
         // deposit the creator fee into the vault
-
-        // SmartMintVaultInterface(vaultAddress).deposit(
-        //     creatorFee,
-        //     creator
-        // );
-
-        // IERC20(stableCoinAddress).transferFrom(msg.sender, address(this), mintPrice);
-        //   function deposit(uint256 assets, address receiver) public virtual override returns (uint256) 
 
         SmartMintVaultInterface(vaultAddress).deposit(
             msg.sender,
@@ -82,13 +74,4 @@ contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
         _safeMint(to, tokenId);
     }
 
-    function _computeCreaterFee(uint256 payment)
-        internal
-        pure
-        returns (uint256)
-    {
-        uint256 basisFee = 30;
-
-        return (payment * basisFee) / 1000;
-    }
 }
