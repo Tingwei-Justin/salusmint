@@ -70,7 +70,7 @@ export default function NewContractPage() {
   const { address } = useAccount()
   const [vaultAddress, setVaultAddress] = useState('')
   const { push } = useRouter()
-  const { width, height } = useWindowSize()
+  // const { width, height } = useWindowSize()
   const [showConfetti, setShowConfetti] = useState(false)
   const initNFTInput = [
     'ETHDenverDemo',
@@ -79,7 +79,6 @@ export default function NewContractPage() {
     address, // creator1Address,
   ]
   const createVaultInput = ['testVault', 'TV', USDCAddress]
-
   const deployContractWriteConfig = {
     mode: 'recklesslyUnprepared',
     address: PROTOCOL_ADDRESS,
@@ -112,6 +111,7 @@ export default function NewContractPage() {
   }
 
   async function deployContract() {
+    console.log(deployContractWriteConfig)
     const deployTx = await deployContractFun()
     const deployResult = await deployTx.wait()
     console.log('deployResult', deployResult)

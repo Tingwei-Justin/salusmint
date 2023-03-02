@@ -34,11 +34,6 @@ async function main() {
 
   await smartMintFactoryContract.deployed();
 
-  console.log(
-    "smartMintFactoryContract address",
-    smartMintFactoryContract.address
-  );
-
   const data = {
     erc20TokenConract: erc20TokenConract.address,
     smartMintFactoryContract: smartMintFactoryContract.address,

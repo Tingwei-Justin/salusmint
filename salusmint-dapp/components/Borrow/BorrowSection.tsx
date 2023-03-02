@@ -2,17 +2,31 @@ import { POOL } from '@config/constant'
 import { Slider } from '@mui/material'
 import { Loading } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { useBalance } from 'wagmi'
+import { useAccount, useBalance, useChainId, useContractRead } from 'wagmi'
 import { BigNumber } from 'ethers'
 import { fromBigNumberToMoney } from '@utils/number'
+import EAService from '../../services/EAService'
+import timeUtil from '@utils/time'
+import { useContract } from '../../hooks/useContract'
 
 function BorrowSection() {
   const [loading, setLoading] = useState(false)
+  const { address } = useAccount()
+  const chainId = useChainId()
   const balance = useBalance({
     address: POOL.pool as `0x${string}`,
     chainId: 31337,
     token: POOL.poolUnderlyingToken.address as `0x${string}`,
   })
+
+  const { data, isError, isLoading } = useContractRead({
+    address: POOL.pool as `0x${string}`,
+    chainId: 31337,
+    abi: POOL.poolAbi,
+    functionName: 'creditRecordMapping',
+    args: [address],
+  })
+
   const [currBorrowAmount, setCurrBorrowAmount] = useState(0)
   const [credit, setCredit] = useState(BigNumber.from(0))
 
@@ -24,7 +38,30 @@ function BorrowSection() {
     }
   }, [balance.data?.value])
 
-  // console.log('creditLinePoolBalance', balance.data?.value)
+  async function checkCreditLine() {
+    setLoading(true)
+    try {
+      const payload = {
+        poolAddress: POOL.pool,
+        borrowerWalletAddress: address,
+        receivableAddress: '',
+      }
+      const result = await EAService.approve(payload, chainId, async () => {
+        return true
+      })
+      console.log('approve result', result)
+      await timeUtil.sleep(2000)
+      // handleApprove()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    console.log('data', data)
+  }, [data])
   return (
     <>
       {credit.eq(BigNumber.from(0)) && (
@@ -74,7 +111,7 @@ function BorrowSection() {
           {loading && <Loading>Checking...</Loading>}
           {!loading && (
             <button
-              onClick={() => setLoading(true)}
+              onClick={() => checkCreditLine()}
               className="flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
             >
               Check your credit line
