@@ -13,7 +13,7 @@ contract Token is ERC20 {
     // The fixed amount of tokens stored in an unsigned integer type variable.
     uint256 public _totalSupply = 10000 * (10**uint256(decimals()));
 
-    constructor(address _owner) ERC20("My Test Token", "TTT") {
+    constructor(address _owner) ERC20("My Test Token", "USDC") {
         _mint(_owner, _totalSupply);
     }
 }

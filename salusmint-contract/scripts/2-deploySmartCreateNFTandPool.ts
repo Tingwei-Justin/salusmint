@@ -37,9 +37,10 @@ async function main() {
     const vaultSymbol = "TV";
     const createVaultInput = [vaultName, vaultSymbol, erc20TokenAddress];
     const tx = await smartMintFactoryContract.connect(signer).createSalusNFTPool(initNFTInput, createVaultInput);
+    console.log("tx: ", tx);
     const event = await tx.wait();
 
-    console.log("createSalusNFTPool tx: ", event.events);
+    console.log("createSalusNFTPool tx: ", event);
   }
   
   main()
