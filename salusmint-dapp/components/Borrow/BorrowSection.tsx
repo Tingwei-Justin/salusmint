@@ -1,21 +1,42 @@
+import { POOL } from '@config/constant'
 import { Slider } from '@mui/material'
 import { Loading } from '@nextui-org/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useBalance } from 'wagmi'
+import { BigNumber } from 'ethers'
+import { fromBigNumberToMoney } from '@utils/number'
 
 function BorrowSection() {
   const [loading, setLoading] = useState(false)
+  const balance = useBalance({
+    address: POOL.pool as `0x${string}`,
+    chainId: 31337,
+    token: POOL.poolUnderlyingToken.address as `0x${string}`,
+  })
   const [currBorrowAmount, setCurrBorrowAmount] = useState(0)
-  const [credit, setCredit] = useState(0)
+  const [credit, setCredit] = useState(BigNumber.from(0))
+
+  const [liquidity, setLiquidity] = useState(BigNumber.from(0))
+
+  useEffect(() => {
+    if (balance.data?.value) {
+      setLiquidity(balance.data?.value)
+    }
+  }, [balance.data?.value])
+
+  // console.log('creditLinePoolBalance', balance.data?.value)
   return (
     <>
-      {credit < 0 && (
+      {credit.eq(BigNumber.from(0)) && (
         <div className="flex flex-col items-end">
-          <div className="text-5xl font-bold">$19,850</div>
+          <div className="text-5xl font-bold">
+            {fromBigNumberToMoney(liquidity)}
+          </div>
           <div className="text-3xl uppercase opacity-80">Liquidity</div>
         </div>
       )}
 
-      {credit >= 0 ? (
+      {credit.gt(BigNumber.from(0)) ? (
         <div className="flex w-full flex-col items-end px-8">
           <div className="pb-6 text-lg font-semibold opacity-80">
             Choose amount you want to borrow
