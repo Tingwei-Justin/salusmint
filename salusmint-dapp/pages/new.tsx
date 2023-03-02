@@ -3,13 +3,13 @@ import Layout from '@components/Layout'
 import { Dropdown, Input } from '@nextui-org/react'
 import Image from 'next/image'
 import { Slider } from '@mui/material'
-import { useContractWrite } from 'wagmi'
+import { useAccount, useContractWrite } from 'wagmi'
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 import { salusMintProtocolAbi } from '@config/abi'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
-import { USDCAddress } from '@config/constant'
+import { USDCAddress, PROTOCOL_ADDRESS } from '@config/constant'
 
 const helpInfo = {
   'contract-name': {
@@ -67,6 +67,7 @@ const supportYields = {
 
 export default function NewContractPage() {
   const [nftAddress, setNftAddress] = useState('')
+  const { address } = useAccount()
   const [vaultAddress, setVaultAddress] = useState('')
   const { push } = useRouter()
   const { width, height } = useWindowSize()
@@ -75,13 +76,13 @@ export default function NewContractPage() {
     'ETHDenverDemo',
     'eth-denver',
     USDCAddress,
-    '0x976EA74026E726554dB657fA54763abd0C3a0aa9', // creator1Address,
+    address, // creator1Address,
   ]
   const createVaultInput = ['testVault', 'TV', USDCAddress]
 
   const deployContractWriteConfig = {
     mode: 'recklesslyUnprepared',
-    address: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
+    address: PROTOCOL_ADDRESS,
     chainId: 31337,
     abi: salusMintProtocolAbi,
     functionName: 'createSalusNFTPool',
@@ -113,6 +114,7 @@ export default function NewContractPage() {
   async function deployContract() {
     const deployTx = await deployContractFun()
     const deployResult = await deployTx.wait()
+    console.log('deployResult', deployResult)
     const nftAddress = `0x${deployResult.logs[2].topics[1].slice(-40)}`
     const vaultAddress = `0x${deployResult.logs[2].topics[2].slice(-40)}`
 
@@ -127,9 +129,9 @@ export default function NewContractPage() {
       ethers.utils.isAddress(vaultAddress)
     ) {
       setShowConfetti(true)
-      // setTimeout(() => {
-      //   setShowConfetti(false)
-      // }, 10000)
+      setTimeout(() => {
+        setShowConfetti(false)
+      }, 10000)
     }
   }
 

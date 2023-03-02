@@ -18,7 +18,7 @@ async function main() {
     const data = JSON.parse(json);
     
     const erc20TokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // erc20 token contract address
-    const smartMintFactoryAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"; // placeholder   
+    const smartMintFactoryAddress = "0x59b670e9fA9D0A427751Af201D676719a970857b"; // placeholder   
     const smartMintFactoryContract = new ethers.Contract(smartMintFactoryAddress, smartMintFactoryJsonAbi, signer);
    
     // create nft info
