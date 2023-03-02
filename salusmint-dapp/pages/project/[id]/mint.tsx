@@ -1,17 +1,56 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '@components/Layout'
 import Image from 'next/image'
 import { NFTContractAbi } from '@config/abi'
 import { USDCAddress } from '@config/constant'
 import { useRouter } from 'next/router'
 import { BigNumber } from 'ethers'
-import { useAccount, useContractWrite } from 'wagmi'
+import {
+  erc20ABI,
+  useAccount,
+  useContract,
+  useContractWrite,
+  usePrepareContractWrite,
+  useSigner,
+} from 'wagmi'
 
 export default function MintPage() {
   const router = useRouter()
   const { address } = useAccount()
-  const { id: nftAddress } = router.query
+  const { id: nftAddress, vaultAddress } = router.query
   const [mintAmount, setMintAmount] = useState(0)
+
+  const [allowance, setAllowance] = useState(BigNumber.from(0))
+  const { data: signer } = useSigner({
+    chainId: 31337,
+  })
+
+  const contract = useContract({
+    address: USDCAddress,
+    abi: erc20ABI,
+    signerOrProvider: signer,
+  })
+
+  const { config: approveERC20Config } = usePrepareContractWrite({
+    address: USDCAddress,
+    chainId: 31337,
+    abi: erc20ABI,
+    functionName: 'approve',
+    args: [vaultAddress, BigNumber.from(10 ** 15)],
+  })
+
+  const { writeAsync: approveERC20Fun } = useContractWrite(approveERC20Config)
+  useEffect(() => {
+    async function init() {
+      if (contract == null || signer == null || typeof address !== 'string') {
+        return
+      }
+      const allowance = await contract.allowance(address, vaultAddress)
+      setAllowance(allowance)
+      // console.log('allowance', allowance)
+    }
+    init()
+  }, [contract, signer, address])
 
   const payAmount = BigNumber.from(2 * 10 ** 6)
   // const tx = await smartMintNFTContract
@@ -29,9 +68,18 @@ export default function MintPage() {
   const { writeAsync: mintFun } = useContractWrite(mintWriteConfig)
 
   async function mint() {
-    const tx = await mintFun()
-    const result = await tx.wait()
-    console.log(result)
+    console.log('allowance', allowance)
+    if (allowance?.lt(payAmount) && approveERC20Fun) {
+      // TODO: ERROR HANDLING
+      const approvalTx = await approveERC20Fun()
+      const res = await approvalTx.wait()
+      console.log(res)
+    }
+    if (mintFun) {
+      const tx = await mintFun()
+      const result = await tx.wait()
+      console.log(result)
+    }
   }
   return (
     <div className="w-full max-w-6xl">

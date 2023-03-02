@@ -12,11 +12,15 @@
   }
   ```
 */
+import { USDCAddress } from '@config/constant'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Image from 'next/image'
+import { BigNumber } from 'ethers'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { erc20ABI, useAccount, useContract, useSigner } from 'wagmi'
 
 const navigation = [
   { name: 'Home', href: '/home', current: true },
@@ -33,6 +37,29 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+  const [balance, setBalance] = useState(BigNumber.from(0))
+  const { address } = useAccount()
+  const { data: signer } = useSigner({
+    chainId: 31337,
+  })
+  const contract = useContract({
+    address: USDCAddress,
+    abi: erc20ABI,
+    signerOrProvider: signer,
+  })
+
+  useEffect(() => {
+    async function init() {
+      if (contract == null || signer == null || address == null) {
+        return
+      }
+      const balance = await contract.balanceOf(address)
+      setBalance(balance)
+      console.log('balance', balance)
+    }
+    init()
+  }, [contract, signer, address])
+
   return (
     <Disclosure as="header" className="shadow bg-white">
       {({ open }) => (

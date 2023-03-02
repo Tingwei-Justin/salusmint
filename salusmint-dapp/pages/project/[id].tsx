@@ -23,7 +23,7 @@ const NFTVaultChart = dynamic(() => import('@components/Chart/NFTVaultChart'), {
 
 function ProjectPage() {
   const router = useRouter()
-  const { id: nftAddress } = router.query
+  const { id: nftAddress, vaultAddress } = router.query
   const data = [
     {
       name: '2022-06-02',
@@ -96,7 +96,7 @@ function ProjectPage() {
             <div className="py-4 text-xl font-semibold">
               <Link
                 className="p-4 text-black"
-                href={`/project/${nftAddress}/mint`}
+                href={`/project/${nftAddress}/mint?vaultAddress=${vaultAddress}`}
               >
                 MINT NOW
               </Link>
