@@ -87,7 +87,7 @@ describe("SmartMint NFT ", async function () {
 
     // check the shares
 
-    const purchase1Share = await smartMintVaultContract.connect(purchaser1).
+    const purchase1Share = await smartMintVaultContract.connect(purchaser1);
     
 
   });

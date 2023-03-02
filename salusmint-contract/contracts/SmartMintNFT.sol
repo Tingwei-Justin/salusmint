@@ -45,21 +45,14 @@ contract SmartMintNFT is ERC721, ERC721Burnable, Ownable {
 
         require(
             payAmount >= mintPrice &&
-                IERC20(stableCoinAddress).balanceOf(to) >= mintPrice,
+                IERC20(stableCoinAddress).balanceOf(to) >= mintPrice && IERC20(stableCoinAddress).allowance(to, address(vaultAddress)) >=
+            mintPrice,
             "NOT SUFFICIENT BAL"
         );
 
-        // to approve if not have enough allowance
-        if (IERC20(stableCoinAddress).allowance(to, address(vaultAddress)) <
-            mintPrice) 
-        {
-            IERC20(stableCoinAddress).approve(address(this), 1000 * DECIMALS);
-        }
-
-
         // deposit the creator fee into the vault
 
-        SmartMintVaultInterface(vaultAddress).deposit(
+        SmartMintVaultInterface(address(vaultAddress)).deposit(
             msg.sender,
             payAmount,
             address(this)
