@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Layout from '@components/Layout'
-import { Button, Dropdown, Input, Text } from '@nextui-org/react'
+import { Dropdown, Input } from '@nextui-org/react'
 import Image from 'next/image'
 import { Slider } from '@mui/material'
 import { useContractWrite } from 'wagmi'

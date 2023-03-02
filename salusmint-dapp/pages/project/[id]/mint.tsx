@@ -1,9 +1,38 @@
 import React, { useState } from 'react'
 import Layout from '@components/Layout'
 import Image from 'next/image'
+import { NFTContractAbi } from '@config/abi'
+import { USDCAddress } from '@config/constant'
+import { useRouter } from 'next/router'
+import { BigNumber } from 'ethers'
+import { useAccount, useContractWrite } from 'wagmi'
 
 export default function MintPage() {
+  const router = useRouter()
+  const { address } = useAccount()
+  const { id: nftAddress } = router.query
   const [mintAmount, setMintAmount] = useState(0)
+
+  const payAmount = BigNumber.from(2 * 10 ** 6)
+  // const tx = await smartMintNFTContract
+  //   .connect(purchaser1)
+  //   .mint(purchaser1.address, payAmount)
+
+  const mintWriteConfig = {
+    mode: 'recklesslyUnprepared',
+    address: nftAddress,
+    chainId: 31337,
+    abi: NFTContractAbi,
+    functionName: 'mint',
+    args: [address, payAmount],
+  }
+  const { writeAsync: mintFun } = useContractWrite(mintWriteConfig)
+
+  async function mint() {
+    const tx = await mintFun()
+    const result = await tx.wait()
+    console.log(result)
+  }
   return (
     <div className="w-full max-w-6xl">
       {/* BANNER */}
@@ -71,7 +100,7 @@ export default function MintPage() {
           </div>
 
           <button
-            //   onClick={() => setLoading(true)}
+            onClick={mint}
             className="mt-12 flex w-48 items-center justify-center border border-black px-6 py-2 text-xl font-semibold font-semibold hover:scale-105 hover:cursor-pointer"
           >
             MINT

@@ -24,7 +24,6 @@ const NFTVaultChart = dynamic(() => import('@components/Chart/NFTVaultChart'), {
 function ProjectPage() {
   const router = useRouter()
   const { id: nftAddress } = router.query
-  console.log(nftAddress)
   const data = [
     {
       name: '2022-06-02',
