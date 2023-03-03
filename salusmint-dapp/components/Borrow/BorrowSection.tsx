@@ -7,7 +7,7 @@ import {
   useBalance,
   useChainId,
   useContractRead,
-  useSigner,
+  useContractWrite,
 } from 'wagmi'
 import { BigNumber } from 'ethers'
 import { fromBigNumberToMoney } from '@utils/number'
@@ -29,19 +29,15 @@ function BorrowSection() {
     token: POOL.poolUnderlyingToken.address as `0x${string}`,
   })
 
-  const { data: creditRecordMapping, isLoading: isLoadingCreditRecordMapping } =
-    useContractRead({
-      address: POOL.pool as `0x${string}`,
-      chainId: chainId,
-      abi: POOL.poolAbi,
-      functionName: 'creditRecordMapping',
-      args: [address],
-    })
+  const { data: creditRecordMapping } = useContractRead({
+    address: POOL.pool as `0x${string}`,
+    chainId: chainId,
+    abi: POOL.poolAbi,
+    functionName: 'creditRecordMapping',
+    args: [address],
+  })
 
-  const {
-    data: creditRecordStaticMapping,
-    isLoading: isLoadingCreditRecordStaticMapping,
-  } = useContractRead({
+  const { data: creditRecordStaticMapping } = useContractRead({
     address: POOL.pool as `0x${string}`,
     chainId: chainId,
     abi: POOL.poolAbi,
@@ -49,15 +45,28 @@ function BorrowSection() {
     args: [address],
   })
 
-  const [currBorrowAmount, setCurrBorrowAmount] = useState(0)
+  const [currBorrowPercent, setCurrBorrowPercent] = useState(0)
   const [credit, setCredit] = useState(BigNumber.from(0))
 
   const [liquidity, setLiquidity] = useState(BigNumber.from(0))
+
+  const borrowWriteConfig = {
+    mode: 'recklesslyUnprepared',
+    address: POOL.pool as `0x${string}`,
+    chainId: chainId,
+    abi: POOL.poolAbi,
+    functionName: 'drawdown',
+    args: [BigNumber.from((currBorrowPercent * credit.toNumber()) / 100)],
+  }
+  const { writeAsync: borrowMoney } = useContractWrite(borrowWriteConfig)
 
   useEffect(() => {
     async function fetch() {
       console.log(creditRecordMapping)
       console.log(creditRecordStaticMapping)
+      if (creditRecordStaticMapping?.creditLimit?.gt(BigNumber.from(0))) {
+        setCredit(creditRecordStaticMapping.creditLimit)
+      }
     }
     fetch()
   }, [creditRecordStaticMapping, creditRecordMapping])
@@ -101,19 +110,26 @@ function BorrowSection() {
     }
   }
 
+  async function handleBorrow() {
+    if (borrowMoney) {
+      const borrowResult = await borrowMoney()
+      console.log(borrowResult)
+    }
+  }
+
   // useEffect(() => {
   //   console.log('data', data)
   // }, [data])
   return (
     <>
-      {credit.eq(BigNumber.from(0)) && (
-        <div className="flex flex-col items-end">
-          <div className="text-5xl font-bold">
-            {fromBigNumberToMoney(liquidity)}
-          </div>
-          <div className="text-3xl uppercase opacity-80">Liquidity</div>
+      {/* {credit.eq(BigNumber.from(0)) && ( */}
+      <div className="flex flex-col items-end">
+        <div className="text-5xl font-bold">
+          {fromBigNumberToMoney(liquidity)}
         </div>
-      )}
+        <div className="text-3xl uppercase opacity-80">Liquidity</div>
+      </div>
+      {/* )} */}
 
       {credit.gt(BigNumber.from(0)) ? (
         <div className="flex w-full flex-col items-end px-8">
@@ -121,15 +137,15 @@ function BorrowSection() {
             Choose amount you want to borrow
           </div>
           <div className="text-5xl font-bold">
-            {(credit.toNumber() * currBorrowAmount) / 100 / 10 ** 6}
+            {(credit.toNumber() * currBorrowPercent) / 100 / 10 ** 6}
             <span className="px-2 text-3xl font-bold opacity-60">USDC</span>
           </div>
           <div className="flex w-full gap-2 px-1 py-4">
             <span className="px-2 text-sm">{`0`}</span>
             <Slider
               aria-label="Default"
-              value={currBorrowAmount}
-              onChange={(e) => setCurrBorrowAmount(e.target?.value)}
+              value={currBorrowPercent}
+              onChange={(e) => setCurrBorrowPercent(e.target?.value)}
             />
             <span className="px-2 text-sm">{fromBigNumberToMoney(credit)}</span>
           </div>
@@ -142,7 +158,7 @@ function BorrowSection() {
             <span className="pl-2 font-semibold">3.3%</span>
           </div>
           <button
-            //   onClick={() => setLoading(true)}
+            onClick={handleBorrow}
             className="mt-6 flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
           >
             BORROW

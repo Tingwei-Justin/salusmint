@@ -64,7 +64,7 @@ export default function Example() {
       {({ open }) => (
         <>
           <div className="mx-auto w-full">
-            <div className="relative flex h-16 justify-between border-b border-black px-8">
+            <div className="relative flex h-16 justify-between px-8">
               <Link className="relative z-10 flex  text-black" href="/">
                 <div className="flex flex-shrink-0 items-center">
                   {/* <Image
