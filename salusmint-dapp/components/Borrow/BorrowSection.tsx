@@ -2,28 +2,50 @@ import { POOL } from '@config/constant'
 import { Slider } from '@mui/material'
 import { Loading } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { useAccount, useBalance, useChainId, useContractRead } from 'wagmi'
+import {
+  useAccount,
+  useBalance,
+  useChainId,
+  useContractRead,
+  useSigner,
+} from 'wagmi'
 import { BigNumber } from 'ethers'
 import { fromBigNumberToMoney } from '@utils/number'
 import EAService from '../../services/EAService'
 import timeUtil from '@utils/time'
-import { useContract } from '../../hooks/useContract'
 
 function BorrowSection() {
   const [loading, setLoading] = useState(false)
   const { address } = useAccount()
   const chainId = useChainId()
+
+  // const { data: signer } = useSigner({
+  //   chainId,
+  // })
+
   const balance = useBalance({
     address: POOL.pool as `0x${string}`,
-    chainId: 31337,
+    chainId: chainId,
     token: POOL.poolUnderlyingToken.address as `0x${string}`,
   })
 
-  const { data, isError, isLoading } = useContractRead({
+  const { data: creditRecordMapping, isLoading: isLoadingCreditRecordMapping } =
+    useContractRead({
+      address: POOL.pool as `0x${string}`,
+      chainId: chainId,
+      abi: POOL.poolAbi,
+      functionName: 'creditRecordMapping',
+      args: [address],
+    })
+
+  const {
+    data: creditRecordStaticMapping,
+    isLoading: isLoadingCreditRecordStaticMapping,
+  } = useContractRead({
     address: POOL.pool as `0x${string}`,
-    chainId: 31337,
+    chainId: chainId,
     abi: POOL.poolAbi,
-    functionName: 'creditRecordMapping',
+    functionName: 'creditRecordStaticMapping',
     args: [address],
   })
 
@@ -33,10 +55,27 @@ function BorrowSection() {
   const [liquidity, setLiquidity] = useState(BigNumber.from(0))
 
   useEffect(() => {
+    async function fetch() {
+      console.log(creditRecordMapping)
+      console.log(creditRecordStaticMapping)
+    }
+    fetch()
+  }, [creditRecordStaticMapping, creditRecordMapping])
+
+  // useEffect(() => {
+  //   async function fetch() {
+  //     if (!isLoadingCreditRecordMapping) {
+  //       console.log(creditRecordMapping)
+  //     }
+  //   }
+  //   fetch()
+  // }, [isLoadingCreditRecordMapping, creditRecordMapping])
+
+  useEffect(() => {
     if (balance.data?.value) {
       setLiquidity(balance.data?.value)
     }
-  }, [balance.data?.value])
+  }, [balance])
 
   async function checkCreditLine() {
     setLoading(true)
@@ -51,6 +90,9 @@ function BorrowSection() {
       })
       console.log('approve result', result)
       await timeUtil.sleep(2000)
+      if (result?.creditLimit > 0) {
+        setCredit(BigNumber.from(result?.creditLimit))
+      }
       // handleApprove()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -59,9 +101,9 @@ function BorrowSection() {
     }
   }
 
-  useEffect(() => {
-    console.log('data', data)
-  }, [data])
+  // useEffect(() => {
+  //   console.log('data', data)
+  // }, [data])
   return (
     <>
       {credit.eq(BigNumber.from(0)) && (
@@ -79,7 +121,7 @@ function BorrowSection() {
             Choose amount you want to borrow
           </div>
           <div className="text-5xl font-bold">
-            {(10000 * currBorrowAmount) / 100}
+            {(credit.toNumber() * currBorrowAmount) / 100 / 10 ** 6}
             <span className="px-2 text-3xl font-bold opacity-60">USDC</span>
           </div>
           <div className="flex w-full gap-2 px-1 py-4">
@@ -89,15 +131,15 @@ function BorrowSection() {
               value={currBorrowAmount}
               onChange={(e) => setCurrBorrowAmount(e.target?.value)}
             />
-            <span className="px-2 text-sm">{`10,000`}</span>
+            <span className="px-2 text-sm">{fromBigNumberToMoney(credit)}</span>
           </div>
           <div className="text-sm">
             <span className="">Origination Fee:</span>
-            <span className="pl-2 font-semibold">3 USDC</span>
+            <span className="pl-2 font-semibold">10 USDC</span>
           </div>
           <div className="text-sm">
             <span className="">APY:</span>
-            <span className="pl-2 font-semibold">6%</span>
+            <span className="pl-2 font-semibold">3.3%</span>
           </div>
           <button
             //   onClick={() => setLoading(true)}

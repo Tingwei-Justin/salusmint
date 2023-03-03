@@ -54,7 +54,7 @@ export default function Example() {
       }
       const balance = await contract.balanceOf(address)
       setBalance(balance)
-      console.log('balance', balance)
+      // console.log('balance', balance)
     }
     init()
   }, [contract, signer, address])

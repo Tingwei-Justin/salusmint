@@ -33,6 +33,10 @@ async function main() {
   const smartMintFactoryContract = await SmartMintFactory.deploy();
 
   await smartMintFactoryContract.deployed();
+  console.log(
+    "smartMintFactoryContract address: ",
+    smartMintFactoryContract.address
+  );
 
   const data = {
     erc20TokenConract: erc20TokenConract.address,
