@@ -1,6 +1,6 @@
 import { POOL } from '@config/constant'
 import { Slider } from '@mui/material'
-import { Loading } from '@nextui-org/react'
+import { Button, Loading } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import {
   useAccount,
@@ -123,16 +123,39 @@ function BorrowSection() {
   return (
     <>
       {/* {credit.eq(BigNumber.from(0)) && ( */}
-      <div className="flex flex-col items-end">
+      {/* <div className="flex flex-col items-start">
+        <div className="text-3xl uppercase opacity-80">Liquidity</div>
         <div className="text-5xl font-bold">
           {fromBigNumberToMoney(liquidity)}
         </div>
-        <div className="text-3xl uppercase opacity-80">Liquidity</div>
-      </div>
+      </div> */}
       {/* )} */}
-
-      {credit.gt(BigNumber.from(0)) ? (
-        <div className="flex w-full flex-col items-end px-8">
+      <div className="flex items-center justify-between py-10">
+        <div className="flex flex-col gap-4">
+          <div className="text-2xl opacity-80">Available Credit</div>
+          <div className="text-4xl font-bold">
+            {fromBigNumberToMoney(credit)}
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="text-2xl opacity-80">Current Balance</div>
+          <div className="text-4xl font-bold">{0}</div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="text-2xl opacity-80">Due on Apr 2</div>
+          <div className="text-4xl font-bold">{0}</div>
+        </div>
+        <div className="flex gap-8">
+          <Button color="default" size={'lg'} onClick={handleBorrow}>
+            Pay
+          </Button>
+          <Button color="gradient" size={'lg'} onClick={handleBorrow}>
+            Borrow
+          </Button>
+        </div>
+      </div>
+      {/* {credit.gt(BigNumber.from(0)) ? (
+        <div className="flex w-full flex-col items-start">
           <div className="pb-6 text-lg font-semibold opacity-80">
             Choose amount you want to borrow
           </div>
@@ -176,9 +199,7 @@ function BorrowSection() {
             </button>
           )}
         </div>
-      )}
-
-      <div className="absolute bottom-4 left-4 text-xl font-bold">Borrow</div>
+      )} */}
     </>
   )
 }
