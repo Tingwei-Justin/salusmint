@@ -139,8 +139,8 @@ function CollectionPage() {
 
         <div className="flex w-full items-center justify-between">
           <Grid.Container gap={2} justify="flex-start">
-            {[...Array(8)].map((_, index) => (
-              <Grid xs={6} sm={3} key={index}>
+            {[...Array(12)].map((_, index) => (
+              <Grid xs={6} sm={2} key={index}>
                 <Card isPressable>
                   <Card.Body css={{ p: 0 }}>
                     <Card.Image
@@ -153,21 +153,21 @@ function CollectionPage() {
                   </Card.Body>
                   <Card.Footer css={{ justifyItems: 'flex-start' }}>
                     <Row wrap="wrap" justify="space-between" align="center">
-                      <div>{index}</div>
+                      <div>BAYC Denver #{index + 1}</div>
                     </Row>
                   </Card.Footer>
                 </Card>
               </Grid>
             ))}
           </Grid.Container>
-          <div className="h-full w-1/4 items-center bg-black">
+          {/* <div className="h-full w-1/4 items-center bg-black">
             <button
               // onClick={mint}
               className="flex h-60 w-full items-center justify-center py-2 text-3xl font-bold text-white  hover:scale-105 hover:cursor-pointer"
             >
               MINT NOW
             </button>
-          </div>
+          </div> */}
         </div>
         {/* NFT Vault */}
         <div className="w-full pt-10">
