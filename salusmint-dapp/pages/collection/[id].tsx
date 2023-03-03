@@ -307,7 +307,7 @@ function CollectionPage() {
                         <div className="font-bold">How to calculate</div>
                         <div className="opacity-60">
                           Creator income = Vault yield * creator shares / total
-                          shared
+                          shares
                         </div>
                       </div>
                     </div>
@@ -321,25 +321,72 @@ function CollectionPage() {
                   <div className="flex w-full flex-col gap-8 px-4">
                     <div className="text-4xl font-bold">Borrow</div>
                     <BorrowSection />
-                    {/* <div className="">
-                      <div className="text-sm font-bold opacity-80">
-                        Next Month Income (EST)
-                      </div>
-                      <div className="text-5xl font-bold">12000 USDC</div>
-                    </div>
-                    <button className="mt-3 flex w-48 items-center justify-center border border-black px-6 py-2 text-xl font-semibold font-semibold hover:scale-105 hover:cursor-pointer">
-                      Claim
-                    </button>
-                    <div className="text-sm opacity-80">
-                      <div className="font-bold">How to calculate</div>
-                      <div className="opacity-60">
-                        Creator income = Vault yield * creator shares / total
-                        shared
-                      </div>
-                    </div> */}
                   </div>
                 </Card.Body>
               </Card>
+            </div>
+          </div>
+        )}
+
+        {displayType === defaultTabs[2].href && (
+          <div className="flex w-full flex-col gap-8 py-10">
+            <div className="flex h-full w-full items-center justify-center gap-8">
+              <div className="h-96 w-1/2">
+                <Card css={{ mw: '100%', height: '100%' }}>
+                  <Card.Body>
+                    <div className="flex w-full flex-col gap-8 px-4">
+                      <div className="text-4xl font-bold">Borrow</div>
+                      <div className="flex w-full items-center justify-between">
+                        <div className="">
+                          <div className="text-sm font-bold opacity-80">
+                            Get
+                          </div>
+                          <div className="text-5xl font-bold">0.08 ETH</div>
+                        </div>
+                      </div>
+
+                      <div className="text-sm opacity-80">
+                        <div className="font-bold">How?</div>
+                        <div className="opacity-60">
+                          Your nft has sustained vault gains. You can stake your
+                          NFT and borrow the money from the Huma lending pool
+                        </div>
+                      </div>
+                      <Button color="gradient" size={'lg'} auto>
+                        Borrow
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
+              <div className="h-96 w-1/2">
+                <Card css={{ mw: '100%', height: '100%' }}>
+                  <Card.Body>
+                    <div className="flex w-full flex-col gap-8 px-4">
+                      <div className="text-4xl font-bold">Exit & Burn</div>
+                      <div className="flex w-full items-center justify-between">
+                        <div className="">
+                          <div className="text-sm font-bold opacity-80">
+                            Get
+                          </div>
+                          <div className="text-5xl font-bold">0.12 ETH</div>
+                        </div>
+                      </div>
+
+                      <div className="text-sm opacity-80">
+                        <div className="font-bold">How to calculate</div>
+                        <div className="opacity-60">
+                          Holder revenue = Vault yield * holder shares / total
+                          shares
+                        </div>
+                      </div>
+                      <Button color="gradient" size={'lg'} auto>
+                        Burn
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </div>
           </div>
         )}
