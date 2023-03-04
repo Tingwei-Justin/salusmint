@@ -11,7 +11,7 @@ async function main() {
 
   // console.log(signer.address, owner.address, purchaser1.address, notOwner.address)
 
-  // console.log(signer.address);
+  console.log(signer.address);
 
   //--------------------- Deploy erc20Token contract -----------------
   const ERC20Token = await ethers.getContractFactory("Token");

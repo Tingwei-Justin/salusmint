@@ -27,7 +27,7 @@ module.exports = {
     tokenOwner: 2,
     purchaser1: 3,
     purchaser2: 4,
-    creatorAddress1: 5,
+    creator1: 5,
     nftAuthroizer2: 6,
     sigSinger1: 7,
     sigSinger2: 8,
@@ -46,11 +46,20 @@ module.exports = {
         `${process.env.TEST_PRIVATE_KEY_LICENSOR}`,
       ],
     },
+    mumbai: {
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY_MUMBAI}`,
+      accounts: [`${process.env.TEST_PRIVATE_KEY_DEPLOY}`],
+    },
+
   },
   etherscan: {
     // Your API key for Etherscan
     // Obtain one at https://etherscan.io/
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: 
+    {
+      mainnet: process.env.ETHERSCAN_API_KEY,
+      polygonMumbai: process.env.POLYGONSCAN_API_KEY,
+    }
   },
   contractSizer: {
     alphaSort: true,
