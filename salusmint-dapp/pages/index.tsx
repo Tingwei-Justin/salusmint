@@ -13,10 +13,10 @@ export default function Home() {
         </div>
 
         <div className="max-w-6xl pt-10 text-xl opacity-60">
-          SalusMint protocol builds a transparent and secure vault that enables
-          NFT holders and creators to build a strong foundation of trust by
-          providing clear ownership and stable DeFi yield fostering long-term
-          development.
+          SalusMint is the next generation of no code NFT launched platform
+          fully backed by Blue chip DeFi to prevent creators from cashing out
+          all their sale proceeds at once and to foster a thriving community
+          focused on health.
         </div>
 
         <div className="flex gap-4 ">
