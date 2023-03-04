@@ -48,7 +48,12 @@ module.exports = {
     },
     mumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY_MUMBAI}`,
-      accounts: [`${process.env.TEST_PRIVATE_KEY_DEPLOY}`],
+      accounts: [
+        `${process.env.TEST_PRIVATE_KEY_DEPLOY}`,
+        `${process.env.TEST_PRIVATE_KEY_USER}`,
+        `${process.env.TEST_PRIVATE_KEY_LICENSOR}`,
+      ],
+
     },
 
   },
