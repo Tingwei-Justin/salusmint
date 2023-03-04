@@ -7,13 +7,15 @@ interface Props {
 
 const Footer: FC<Props> = ({ className }) => {
   return (
-    <footer className="w-full bg-[#1c1c1c] text-white">
-      <div className="flex flex-col items-center justify-center gap-4 py-10 text-sm">
-        <span className="tracking-widest">&copy;2023 ETH denver</span>
+    <footer className="w-full bg-[#313131] text-white">
+      <div className="flex flex-col items-center justify-center gap-4 py-4 text-sm">
+        <span className="tracking-widest">
+          &copy;2023 ETH denver | #BUIDL FOR FUTURE
+        </span>
 
-        <div className="flex items-center justify-center gap-2 tracking-wide opacity-60">
-          <nav className="flex flex-row gap-3">#BUIDL FOR FUTURE</nav>
-        </div>
+        {/* <div className="flex items-center justify-center gap-2 tracking-wide opacity-60">
+          <nav className="flex flex-row gap-3"></nav>
+        </div> */}
       </div>
     </footer>
   )

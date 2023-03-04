@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '@components/Layout'
-import { Dropdown, Input } from '@nextui-org/react'
+import { Button, Dropdown, Input } from '@nextui-org/react'
 import Image from 'next/image'
 import { Slider } from '@mui/material'
 import { useAccount, useContractWrite } from 'wagmi'
@@ -137,16 +137,17 @@ export default function NewContractPage() {
 
   return (
     <div className="container flex w-full justify-center">
-      <Confetti width={2000} height={2000} run={showConfetti} />
+      {showConfetti && <Confetti width={2000} height={2000} />}
+
       <div className="w-full max-w-7xl py-10">
-        <div className=" border-2 border-black">
+        <div className="">
           {/* Header */}
-          <div className="b border-b-2 border-black py-4 px-10 text-3xl font-semibold">
+          <div className="py-4 px-10 text-4xl font-bold">
             Create NFT smart contract
           </div>
           <div className="flex w-full">
             {/* Form content */}
-            <div className="w-3/5 space-y-12 border-r-2 border-black px-10 py-10">
+            <div className="w-3/5 space-y-12 px-10 py-10">
               <div className="w-96">
                 <Input
                   clearable
@@ -177,7 +178,7 @@ export default function NewContractPage() {
                 }}
               >
                 <div className="px-1 font-semibold opacity-60">
-                  Vault yield generator
+                  DAO Vault yield generator
                 </div>
                 <Dropdown>
                   <Dropdown.Button
@@ -244,36 +245,40 @@ export default function NewContractPage() {
                   setSelectedHelpInfo(helpInfo['vault-share'])
                 }}
               >
-                <div className="px-1 font-semibold opacity-60">Vault share</div>
-                <div className="flex gap-2 px-1">
-                  <span className="text-sm">{`Creators ${creatorsSharePercent}%`}</span>
+                <div className="px-1 font-semibold opacity-60">
+                  DAO Vault share distribution
+                </div>
+                <div className="flex w-full gap-2 px-1">
                   <Slider
                     aria-label="Default"
                     valueLabelDisplay="auto"
                     value={creatorsSharePercent ?? 0}
                     onChange={handleVauleChange}
                   />
+                </div>
+                <div className="flex w-full items-center justify-between">
+                  <span className="text-sm">{`Creators ${creatorsSharePercent}%`}</span>
                   <span className="text-sm">{`Holders ${holdersSharePercent}%`}</span>
                 </div>
               </div>
 
               {ethers.utils.isAddress(nftAddress) &&
               ethers.utils.isAddress(vaultAddress) ? (
-                <button
-                  className="flex w-52 items-center justify-center border border-black py-2 font-semibold hover:scale-105 hover:cursor-pointer"
+                <Button
+                  color="gradient"
+                  size={'lg'}
                   onClick={() =>
-                    push(`/project/${nftAddress}?vaultAddress=${vaultAddress}`)
+                    push(
+                      `/collection/${nftAddress}?vaultAddress=${vaultAddress}`
+                    )
                   }
                 >
                   Check your NFT collection
-                </button>
+                </Button>
               ) : (
-                <button
-                  onClick={deployContract}
-                  className="flex w-52 items-center justify-center border border-black py-2 font-semibold hover:scale-105 hover:cursor-pointer"
-                >
+                <Button color="gradient" size={'lg'} onClick={deployContract}>
                   Deploy
-                </button>
+                </Button>
               )}
             </div>
 

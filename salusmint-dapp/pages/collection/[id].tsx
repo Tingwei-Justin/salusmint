@@ -123,12 +123,12 @@ function CollectionPage() {
             <Image
               src="/demo-collection/Group 1.png"
               className=" rounded-lg object-contain"
-              width={260}
-              height={260}
+              width={300}
+              height={300}
               alt="icon"
             />
           </div>
-          <div className="self-end">
+          <div className="flex w-full justify-between self-end">
             <div>
               <div className="text-5xl font-bold">BAYC Denver DEMO</div>
               <div className="mt-4 max-w-3xl opacity-60">
@@ -137,6 +137,16 @@ function CollectionPage() {
                 cashing out all their sale proceeds at once and to foster a
                 thriving community focused on health.
               </div>
+            </div>
+            <div className="pt-10">
+              <Link
+                className="p-4 text-black"
+                href={`/collection/${nftAddress}/mint?vaultAddress=${vaultAddress}`}
+              >
+                <button className="flex w-64 items-center justify-center bg-black py-2 text-3xl font-bold text-white  hover:scale-105 hover:cursor-pointer">
+                  MINT NOW
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -171,7 +181,7 @@ function CollectionPage() {
                     <Card isPressable>
                       <Card.Body css={{ p: 0 }}>
                         <Card.Image
-                          src={`/demo-collection/Group ${index + 1}.png`}
+                          src={`/demo-collection/Group ${index + 2}.png`}
                           objectFit="fill"
                           width={'100%'}
                           height={'100%'}
@@ -213,11 +223,19 @@ function CollectionPage() {
                           <div>STETH (Lido - Ethereum) </div>
                         </div>
 
-                        <div className="">
-                          <div className="text-sm font-bold opacity-80">
-                            Total APY
+                        <div className="flex items-center gap-16">
+                          <div className="">
+                            <div className="text-sm font-bold opacity-80">
+                              DAO TVL
+                            </div>
+                            <div className="text-5xl font-bold">1,062 ETH</div>
                           </div>
-                          <div className="text-5xl font-bold">5.20%</div>
+                          <div className="">
+                            <div className="text-sm font-bold opacity-80">
+                              Total APY
+                            </div>
+                            <div className="text-5xl font-bold">5.20%</div>
+                          </div>
                         </div>
 
                         <div className="text-sm opacity-80">
@@ -341,7 +359,7 @@ function CollectionPage() {
                           <div className="text-sm font-bold opacity-80">
                             Get
                           </div>
-                          <div className="text-5xl font-bold">0.08 ETH</div>
+                          <div className="text-5xl font-bold">120 USDC</div>
                         </div>
                       </div>
 
@@ -369,7 +387,7 @@ function CollectionPage() {
                           <div className="text-sm font-bold opacity-80">
                             Get
                           </div>
-                          <div className="text-5xl font-bold">0.12 ETH</div>
+                          <div className="text-5xl font-bold">160 USDC</div>
                         </div>
                       </div>
 
