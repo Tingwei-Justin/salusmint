@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx hardhat node",
+    "fork": "npx hardhat node --network hardhat --fork "
   },
   "author": "justin",
   "license": "ISC",
@@ -27,7 +29,7 @@
     "chai": "^4.2.0",
     "dotenv": "^16.0.3",
     "ethers": "^5.4.7",
-    "hardhat": "^2.12.6",
+    "hardhat": "^2.13.0",
     "hardhat-deploy": "^0.11.23",
     "hardhat-gas-reporter": "^1.0.8",
     "hardhat-storage-layout": "^0.1.7",

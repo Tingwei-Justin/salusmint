@@ -4,7 +4,7 @@ import "@openzeppelin/hardhat-upgrades";
 import "hardhat-storage-layout";
 import "hardhat-gas-reporter";
 import "dotenv/config";
-import '@primitivefi/hardhat-dodoc';
+import "@primitivefi/hardhat-dodoc";
 
 const settings = {
   optimizer: {
@@ -62,8 +62,8 @@ module.exports = {
   dodoc: {
     runOnCompile: false,
     debugMode: true,
-    include:["contracts/v2/protocol"],
-    exclude: ['test', 'libraries'],
+    include: ["contracts/v2/protocol"],
+    exclude: ["test", "libraries"],
     // More options...
   },
   // plugins: ["solidity-coverage"]
