@@ -1,4 +1,34 @@
 # salusmint
+## Description
+SalusMint is a new generation of NFT launchpad that offers a sustainable source of income for both creators and holds, via yield generating pools (DeFi solution), therefore aligning the interest of both colelctions and holders for the long term vision of a collection and community.
+
+## Problem statement
+Today, the current NFT market is a zero sum game between creators and holders, keeping the NFT ecosystem unsustainable. Rug pulls and quick flips are rampant, because both creators and holders want to make a quick profit at the expense of the other. Ultimately, the incentives around creators and holders are not aligned.
+
+Here are three main symptoms:
+1. Creators can easily rug pull and community is lack of trust
+2. Royalties income is drying up especially in Zero Royalties era.  
+3. 99% of NFT lacks liquidity.
+
+## Solution
+SalusMint is an NFT launchpad that allowing all proceeds from launch enteres a yield generating pool, which offfers a sustainable source of income for both creators and holders. Here are the detail workflow.
+1. Creators select the yield generating pools and launch the NFT project
+2. All NFT sale proceeds from buyers are deposited into yield generating pools (e.g. Lido, SSV staking)
+3. Creators will receive sustainable yield income as reward (not be affected by zero royalties era)
+4. NFT buyers can exist at any time with a small penalty, which can prevent NFT buyers from losing too much.
+4. Creators can borrow money from Huma Finance using the future income as collateral, which allows them to have more resources for their community.
+
+## Innovation
+1. SalusMint redefine the source of income for NFT creators using sustainable yield generating pools to build the trusted and long-term success for community.
+- Before: NFT sale proceeds + royalties
+- After: yield of (NFT sale proceeds + royalties)
+2. Every NFT will have liquidity from beginning because all proceeds are in DeFi pool and can exit at any time with a small penalty.
+
+## Future work
+1. Launch as a NFT launch pad to redefine a fair NFT ecosystem
+2. Integration with more yield-generating protocols
+
+
 SalusMint is a new project that seeks to bring together the worlds of NFTs and DeFi in a way that benefits both creators and buyers. The project offers a unique approach to NFT launches, with all proceeds from the launch entering a yield-generating pool. This pool provides a sustainable source of income for both creators and holders, and ensures that the incentives of both parties are aligned.
 
 The current NFT market is a zero-sum game, where creators and holders are often at odds with each other. Creators want to make as much money as possible from their NFTs, while buyers are looking to make a quick profit by flipping them. This often leads to rug pulls and other forms of fraud, as creators look to cash out quickly and buyers look for the next hot NFT.
