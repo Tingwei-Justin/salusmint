@@ -7,18 +7,19 @@ export const theme = createTheme({
       // generic colors
       white: '#ffffff',
       black: '#000000',
-      text: '#000000',
+      text: '#ffffff',
       // brand colors
-      primaryLight: '#F1F3F5',
-      primaryLightHover: '#DFE3E6', // commonly used on hover state
-      primaryLightActive: '#C1C8CD', // commonly used on pressed state
-      primaryLightContrast: '#889096', // commonly used for text inside the component
-      primary: '#000000',
-      primaryBorder: '#000000',
-      primaryBorderHover: '#000000',
-      primarySolidHover: '#000000',
-      primarySolidContrast: '#ffffff', // commonly used for text inside the component
+      primaryLight: '#ffffff',
+      primaryLightHover: '#ffffff', // commonly used on hover state
+      primaryLightActive: '#ffffff', // commonly used on pressed state
+      primaryLightContrast: '#000000', // commonly used for text inside the component
+      primary: '#ffffff',
+      primaryBorder: '#ffffff',
+      primaryBorderHover: '#ffffff',
+      primarySolidHover: '#ffffff',
+      primarySolidContrast: '#000000', // commonly used for text inside the component
       primaryShadow: '#687076',
+      primaryInputTextColor: '#ffffff',
 
       // secondary: '#CBCBFF',
       // secondarySolidContrast: '#0004C3', // commonly used for text inside the component

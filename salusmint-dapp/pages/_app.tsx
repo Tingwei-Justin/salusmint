@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { createClient, configureChains, WagmiConfig } from 'wagmi'
-import { mainnet, goerli, hardhat } from 'wagmi/chains'
+import { goerli, hardhat } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'

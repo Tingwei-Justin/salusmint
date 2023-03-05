@@ -34,35 +34,39 @@ const helpInfo = {
   },
 }
 const supportYields = {
-  'Lower risk': [
+  'ETH related': [
     {
-      name: 'Lido',
-      network: 'mainnet',
+      name: 'SSV Staking Pool',
+      network: 'SalusMint',
       apy: '4.92',
+      icon: '/icons/salusmint.png',
     },
     {
-      name: 'AAVE V2',
-      network: 'mainnet',
-      apy: '3.1',
+      name: 'stETH',
+      network: 'Lido',
+      apy: '4.8',
+      icon: '/icons/lido.png',
     },
+
     {
-      name: 'Yearn Finance',
-      network: 'mainnet',
-      apy: '3.0',
+      name: 'aFXSETH',
+      network: 'Concentrator',
+      apy: '7.2',
+      icon: '/icons/concentrator.png',
     },
   ],
-  'Higher risk': [
-    {
-      name: 'Ribbon',
-      network: 'mainnet',
-      apy: '8.71',
-    },
-    {
-      name: 'Fractal Protocol',
-      network: 'mainnet',
-      apy: '8',
-    },
-  ],
+  // 'Higher risk': [
+  //   {
+  //     name: 'Ribbon',
+  //     network: 'mainnet',
+  //     apy: '8.71',
+  //   },
+  //   {
+  //     name: 'Fractal Protocol',
+  //     network: 'mainnet',
+  //     apy: '8',
+  //   },
+  // ],
 }
 
 export default function NewContractPage() {
@@ -139,8 +143,8 @@ export default function NewContractPage() {
     <div className="container flex w-full justify-center">
       {showConfetti && <Confetti width={2000} height={2000} />}
 
-      <div className="w-full max-w-7xl py-10">
-        <div className="">
+      <div className="mt-10 flex w-full max-w-7xl items-start justify-center py-10">
+        <div className="w-full border border-white">
           {/* Header */}
           <div className="py-4 px-10 text-4xl font-bold">
             Create NFT smart contract
@@ -150,6 +154,8 @@ export default function NewContractPage() {
             <div className="w-3/5 space-y-12 px-10 py-10">
               <div className="w-96">
                 <Input
+                  color="primary"
+                  // helperColor="success"
                   clearable
                   underlined
                   labelPlaceholder="Contract name"
@@ -162,6 +168,7 @@ export default function NewContractPage() {
 
               <div className="w-96">
                 <Input
+                  color="primary"
                   clearable
                   underlined
                   labelPlaceholder="Contract symbol"
@@ -191,22 +198,26 @@ export default function NewContractPage() {
                       : 'Select yield generator'}
                   </Dropdown.Button>
                   <Dropdown.Menu
-                    color="secondary"
+                    color="success"
                     aria-label="Actions"
-                    css={{ $$dropdownMenuWidth: '280px' }}
+                    css={{
+                      $$dropdownMenuWidth: '280px',
+                      $$textColor: '#000000',
+                    }}
                     selectionMode="single"
                     selectedKeys={selectedYield ?? ''}
                     onSelectionChange={setSelectedYield}
                   >
-                    <Dropdown.Section title="Lower risk">
-                      {supportYields['Lower risk'].map((item) => (
+                    <Dropdown.Section title="ETH related">
+                      {supportYields['ETH related'].map((item) => (
                         <Dropdown.Item
                           key={item.name}
+                          color="primary"
                           description={item.network}
                           command={item.apy + '%'}
                           icon={
                             <Image
-                              src="/icons/ethereum.png"
+                              src={item.icon}
                               height={14}
                               width={14}
                               alt="eth icon"
@@ -217,7 +228,7 @@ export default function NewContractPage() {
                         </Dropdown.Item>
                       ))}
                     </Dropdown.Section>
-                    <Dropdown.Section title="Higher risk">
+                    {/* <Dropdown.Section title="Higher risk">
                       {supportYields['Higher risk'].map((item) => (
                         <Dropdown.Item
                           key={item.name}
@@ -235,12 +246,12 @@ export default function NewContractPage() {
                           {item.name}
                         </Dropdown.Item>
                       ))}
-                    </Dropdown.Section>
+                    </Dropdown.Section> */}
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
 
-              <div
+              {/* <div
                 onClick={() => {
                   setSelectedHelpInfo(helpInfo['vault-share'])
                 }}
@@ -260,7 +271,7 @@ export default function NewContractPage() {
                   <span className="text-sm">{`Creators ${creatorsSharePercent}%`}</span>
                   <span className="text-sm">{`Holders ${holdersSharePercent}%`}</span>
                 </div>
-              </div>
+              </div> */}
 
               {ethers.utils.isAddress(nftAddress) &&
               ethers.utils.isAddress(vaultAddress) ? (
@@ -282,12 +293,12 @@ export default function NewContractPage() {
               )}
             </div>
 
-            <div className="w-2/5 p-4">
+            {/* <div className="w-2/5 p-4">
               <div className="text-3xl font-semibold tracking-wide">
                 {selectedHelpInfo.title}
               </div>
               <div className="opacity-60">{selectedHelpInfo.description}</div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

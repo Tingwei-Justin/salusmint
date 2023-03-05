@@ -18,6 +18,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Text } from '@nextui-org/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { BigNumber } from 'ethers'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { erc20ABI, useAccount, useContract, useSigner } from 'wagmi'
@@ -53,17 +54,17 @@ export default function Example() {
   }, [contract, signer, address])
 
   return (
-    <div className="mx-auto w-full">
+    <div className="mx-auto w-full bg-black">
       <div className="relative flex items-center justify-between px-8 py-3">
-        <Link className="relative z-10 flex  text-black" href="/">
+        <Link className="relative z-10 flex " href="/">
           <div className="flex flex-shrink-0 items-center">
-            {/* <Image
-            width={10}
-            height={10}
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          /> */}
-            <Text
+            <Image
+              width={248}
+              height={50}
+              src="/logo-with-text.png"
+              alt="Your Company"
+            />
+            {/* <Text
               h1
               size={32}
               css={{
@@ -72,13 +73,13 @@ export default function Example() {
               weight="bold"
             >
               SalusMint
-            </Text>
+            </Text> */}
           </div>
         </Link>
         <div className="flex gap-10">
           {navigation.map((item, idx) => (
             <Link href={item.href} key={item.name}>
-              <div className="text-lg font-bold tracking-wide text-black">
+              <div className="text-lg font-bold tracking-wide text-white">
                 {item.name}
               </div>
             </Link>

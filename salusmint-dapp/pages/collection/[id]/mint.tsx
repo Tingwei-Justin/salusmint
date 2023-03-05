@@ -105,10 +105,10 @@ export default function MintPage() {
             focused on health.
           </div>
           <div className="flex flex-col gap-4">
-            <button className="mt-2 flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer">
+            <button className="mt-2 flex w-48 items-center justify-center border border-white px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer">
               Supply: 10000
             </button>
-            <button className="mt-2 flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer">
+            <button className="mt-2 flex w-48 items-center justify-center border border-white px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer">
               200 USDC per each
             </button>
           </div>
@@ -116,7 +116,7 @@ export default function MintPage() {
           <div className="flex w-full gap-2 pt-4">
             <button
               onClick={() => setMintAmount((x) => Math.max(0, x - 1))}
-              className="flex w-20 items-center justify-center border border-black py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
+              className="flex w-20 items-center justify-center border border-white py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
             >
               -
             </button>
@@ -126,11 +126,11 @@ export default function MintPage() {
               min={0}
               max={10000}
               onChange={(e) => setMintAmount(e.target.value)}
-              className="w-32 px-4 text-lg  font-bold"
+              className="w-32 px-4 text-lg font-bold text-black"
             />
             <button
               onClick={() => setMintAmount((x) => Math.min(10000, x + 1))}
-              className="flex w-20 items-center justify-center border border-black py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
+              className="flex w-20 items-center justify-center border border-white py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
             >
               +
             </button>

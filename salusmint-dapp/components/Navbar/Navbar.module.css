@@ -1,6 +1,6 @@
-.root {
+/* .root {
   @apply border-accent-2 border-t bg-[#1c1c1c];
-}
+} */
 
 .link {
   & > svg {

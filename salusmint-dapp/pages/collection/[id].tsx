@@ -56,6 +56,18 @@ const data = [
     name: '2022-12-02',
     uv: 1062,
   },
+  {
+    name: '2023-1-02',
+    uv: 1075,
+  },
+  {
+    name: '2023-2-02',
+    uv: 1090,
+  },
+  {
+    name: '2023-3-02',
+    uv: 1105,
+  },
 ]
 
 function CollectionPage() {
@@ -143,7 +155,7 @@ function CollectionPage() {
                 className="p-4 text-black"
                 href={`/collection/${nftAddress}/mint?vaultAddress=${vaultAddress}`}
               >
-                <button className="flex w-64 items-center justify-center bg-black py-2 text-3xl font-bold text-white  hover:scale-105 hover:cursor-pointer">
+                <button className="flex w-64 items-center justify-center border border-white bg-black py-2 text-3xl  font-bold text-white hover:scale-105 hover:cursor-pointer">
                   MINT NOW
                 </button>
               </Link>
@@ -152,7 +164,7 @@ function CollectionPage() {
         </div>
 
         {/* Tab */}
-        <div className="w-full border-b-[1px] border-black border-opacity-10 py-4 pb-2">
+        <div className="w-full border-b-[1px] border-white border-opacity-10 py-4 pb-2">
           {tabs.map((tab, idx) => (
             <a
               key={tab.name}
@@ -160,9 +172,9 @@ function CollectionPage() {
                 onHandleTab(idx)
               }}
               className={clsx(
-                ' whitespace-nowrap border-b-[3px] py-2 px-4 tracking-wide text-black hover:cursor-pointer',
+                ' whitespace-nowrap border-b-[3px] py-2 px-4 tracking-wide text-white hover:cursor-pointer',
                 tab.current
-                  ? 'border-black font-bold'
+                  ? 'border-white font-bold'
                   : 'border-transparent opacity-60 hover:opacity-80'
               )}
               aria-current={tab.current ? 'page' : undefined}
@@ -190,7 +202,9 @@ function CollectionPage() {
                       </Card.Body>
                       <Card.Footer css={{ justifyItems: 'flex-start' }}>
                         <Row wrap="wrap" justify="space-between" align="center">
-                          <div>BAYC Denver #{index + 1}</div>
+                          <div className="text-black">
+                            BAYC Denver #{index + 1}
+                          </div>
                         </Row>
                       </Card.Footer>
                     </Card>
@@ -215,12 +229,12 @@ function CollectionPage() {
                 <div className="w-1/3">
                   <Card css={{ mw: '100%' }}>
                     <Card.Body>
-                      <div className="flex w-full flex-col gap-8 px-4">
+                      <div className="flex w-full flex-col gap-8 px-4 text-black">
                         <div className="flex w-full items-center gap-2 text-lg">
                           <div className="font-bold tracking-wide">
                             Yield strategy:{' '}
                           </div>
-                          <div>STETH (Lido - Ethereum) </div>
+                          <div>salusETH (SSV Staking Pool) </div>
                         </div>
 
                         <div className="flex items-center gap-16">
@@ -228,7 +242,7 @@ function CollectionPage() {
                             <div className="text-sm font-bold opacity-80">
                               DAO TVL
                             </div>
-                            <div className="text-5xl font-bold">1,062 ETH</div>
+                            <div className="text-5xl font-bold">1,105 ETH</div>
                           </div>
                           <div className="">
                             <div className="text-sm font-bold opacity-80">
@@ -243,7 +257,6 @@ function CollectionPage() {
                           <div className="opacity-60">
                             The algorithm predicts the current APY of 5.20% to
                             fall below 4.16% within the next 4 weeks.
-                            Confidence: Low
                           </div>
                         </div>
                       </div>
@@ -264,30 +277,37 @@ function CollectionPage() {
               <div className="h-96 w-1/2">
                 <Card css={{ mw: '100%', height: '100%' }}>
                   <Card.Body>
-                    <div className="flex w-full flex-col gap-8 px-4">
+                    <div className="flex w-full flex-col gap-8 px-4 text-black">
                       <div className="text-4xl font-bold">DAO Vault Pool</div>
                       <div className=" w-full ">
                         <div className="text-sm font-bold tracking-wide opacity-80">
                           Yield strategy
                         </div>
                         <div className="text-3xl font-semibold">
-                          STETH (Lido - Ethereum){' '}
+                          <div>salusETH (SSV Staking Pool) </div>
                         </div>
                       </div>
 
-                      <div className="">
-                        <div className="text-sm font-bold opacity-80">
-                          Total APY
+                      <div className="flex items-center gap-16">
+                        <div className="">
+                          <div className="text-sm font-bold opacity-80">
+                            TVL
+                          </div>
+                          <div className="text-5xl font-bold">1,105 ETH</div>
                         </div>
-                        <div className="text-5xl font-bold">5.20%</div>
+                        <div className="">
+                          <div className="text-sm font-bold opacity-80">
+                            Total APY
+                          </div>
+                          <div className="text-5xl font-bold">5.20%</div>
+                        </div>
                       </div>
 
                       <div className="text-sm opacity-80">
                         <div className="font-bold">Outlook</div>
                         <div className="opacity-60">
                           The algorithm predicts the current APY of 5.20% to
-                          fall below 4.16% within the next 4 weeks. Confidence:
-                          Low
+                          fall below 4.16% within the next 4 weeks.
                         </div>
                       </div>
                     </div>
@@ -297,7 +317,7 @@ function CollectionPage() {
               <div className="h-96 w-1/2">
                 <Card css={{ mw: '100%', height: '100%' }}>
                   <Card.Body>
-                    <div className="flex w-full flex-col gap-8 px-4">
+                    <div className="flex w-full flex-col gap-8 px-4 text-black">
                       <div className="text-4xl font-bold">Income</div>
                       <div className="flex w-full items-center justify-between">
                         <div className="">
@@ -313,7 +333,7 @@ function CollectionPage() {
                           <div className="text-5xl font-bold">$12,000</div>
                         </div>
                         <Button
-                          color="gradient"
+                          color="success"
                           size={'lg'}
                           // onClick={handleBorrow}
                         >
@@ -336,7 +356,7 @@ function CollectionPage() {
             <div className="w-full">
               <Card css={{ mw: '100%' }}>
                 <Card.Body>
-                  <div className="flex w-full flex-col gap-8 px-4">
+                  <div className="flex w-full flex-col gap-8 px-4 text-black">
                     <div className="text-4xl font-bold">Borrow</div>
                     <BorrowSection />
                   </div>
@@ -352,26 +372,26 @@ function CollectionPage() {
               <div className="h-96 w-1/2">
                 <Card css={{ mw: '100%', height: '100%' }}>
                   <Card.Body>
-                    <div className="flex w-full flex-col gap-8 px-4">
-                      <div className="text-4xl font-bold">Borrow</div>
+                    <div className="flex w-full flex-col gap-8 px-4 text-black">
+                      <div className="text-4xl font-bold">Claim rewards</div>
                       <div className="flex w-full items-center justify-between">
                         <div className="">
                           <div className="text-sm font-bold opacity-80">
                             Get
                           </div>
-                          <div className="text-5xl font-bold">120 USDC</div>
+                          <div className="text-5xl font-bold">20 USDC</div>
                         </div>
                       </div>
 
                       <div className="text-sm opacity-80">
                         <div className="font-bold">How?</div>
                         <div className="opacity-60">
-                          Your nft has sustained vault gains. You can stake your
-                          NFT and borrow the money from the Huma lending pool
+                          Your nft has sustained vault gains. You can get
+                          rewards from yield generating pool
                         </div>
                       </div>
-                      <Button color="gradient" size={'lg'} auto>
-                        Borrow
+                      <Button color="success" size={'lg'} auto>
+                        Claim
                       </Button>
                     </div>
                   </Card.Body>
@@ -380,8 +400,8 @@ function CollectionPage() {
               <div className="h-96 w-1/2">
                 <Card css={{ mw: '100%', height: '100%' }}>
                   <Card.Body>
-                    <div className="flex w-full flex-col gap-8 px-4">
-                      <div className="text-4xl font-bold">Exit & Burn</div>
+                    <div className="flex w-full flex-col gap-8 px-4 text-black">
+                      <div className="text-4xl font-bold">Exit</div>
                       <div className="flex w-full items-center justify-between">
                         <div className="">
                           <div className="text-sm font-bold opacity-80">
@@ -398,8 +418,8 @@ function CollectionPage() {
                           shares
                         </div>
                       </div>
-                      <Button color="gradient" size={'lg'} auto>
-                        Burn
+                      <Button color="success" size={'lg'} auto>
+                        <div className="font-bold">Exit communtiy</div>
                       </Button>
                     </div>
                   </Card.Body>

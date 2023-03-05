@@ -13,6 +13,7 @@ import { BigNumber } from 'ethers'
 import { fromBigNumberToMoney } from '@utils/number'
 import EAService from '../../services/EAService'
 import timeUtil from '@utils/time'
+import { Router, useRouter } from 'next/router'
 
 function BorrowSection() {
   const [loading, setLoading] = useState(false)
@@ -47,8 +48,14 @@ function BorrowSection() {
 
   const [currBorrowPercent, setCurrBorrowPercent] = useState(0)
   const [credit, setCredit] = useState(BigNumber.from(0))
+  const [currentBalance, setCurrentBalance] = useState(BigNumber.from(0))
+  const [dueDate, setDueDate] = useState(null)
 
   const [liquidity, setLiquidity] = useState(BigNumber.from(0))
+
+  const [showBorrow, setShowBorrow] = useState(false)
+  const [showPay, setShowPay] = useState(false)
+  const router = useRouter()
 
   const borrowWriteConfig = {
     mode: 'recklesslyUnprepared',
@@ -60,12 +67,35 @@ function BorrowSection() {
   }
   const { writeAsync: borrowMoney } = useContractWrite(borrowWriteConfig)
 
+  const payWriteConfig = {
+    mode: 'recklesslyUnprepared',
+    address: POOL.pool as `0x${string}`,
+    chainId: chainId,
+    abi: POOL.poolAbi,
+    functionName: 'makePayment',
+    args: [
+      address,
+      BigNumber.from((currBorrowPercent * currentBalance.toNumber()) / 100),
+    ],
+  }
+  const { writeAsync: payMoney } = useContractWrite(payWriteConfig)
+
   useEffect(() => {
     async function fetch() {
       console.log(creditRecordMapping)
       console.log(creditRecordStaticMapping)
       if (creditRecordStaticMapping?.creditLimit?.gt(BigNumber.from(0))) {
         setCredit(creditRecordStaticMapping.creditLimit)
+      }
+
+      if (creditRecordMapping?.unbilledPrincipal?.gt(BigNumber.from(0))) {
+        // console.log(creditRecordStaticMapping.unbilledPrincipal)
+        setCurrentBalance(creditRecordMapping.unbilledPrincipal)
+      }
+
+      if (creditRecordMapping?.dueDate?.gt(BigNumber.from(0))) {
+        // console.log(creditRecordStaticMapping.unbilledPrincipal)
+        setDueDate(creditRecordMapping.dueDate?.toNumber() ?? null)
       }
     }
     fetch()
@@ -113,7 +143,16 @@ function BorrowSection() {
   async function handleBorrow() {
     if (borrowMoney) {
       const borrowResult = await borrowMoney()
+      router.reload()
       console.log(borrowResult)
+    }
+  }
+
+  async function handlePayBack() {
+    if (payMoney) {
+      const payResult = await payMoney()
+      router.reload()
+      console.log(payResult)
     }
   }
 
@@ -139,28 +178,100 @@ function BorrowSection() {
         </div>
         <div className="flex flex-col gap-4">
           <div className="text-2xl opacity-80">Current Balance</div>
-          <div className="text-4xl font-bold">{0}</div>
+          <div className="text-4xl font-bold">
+            {' '}
+            {fromBigNumberToMoney(currentBalance)}
+          </div>
         </div>
         <div className="flex flex-col gap-4">
-          <div className="text-2xl opacity-80">Due on Apr 2</div>
-          <div className="text-4xl font-bold">{0}</div>
+          <div className="text-2xl opacity-80">
+            Due on {new Date(dueDate * 1000).toLocaleDateString()}
+          </div>
+          <div className="text-4xl font-bold">-</div>
         </div>
         <div className="flex gap-8">
-          <Button color="default" size={'lg'} onClick={handleBorrow}>
+          <Button
+            color="success"
+            size={'lg'}
+            onClick={() => {
+              setShowBorrow(false)
+              setShowPay(true)
+            }}
+          >
             Pay
           </Button>
-          <Button color="gradient" size={'lg'} onClick={handleBorrow}>
+          <Button
+            color="secondary"
+            size={'lg'}
+            onClick={() => {
+              setShowBorrow(true)
+              setShowPay(false)
+            }}
+          >
             Borrow
           </Button>
         </div>
       </div>
-      {/* {credit.gt(BigNumber.from(0)) ? (
+      {showBorrow && (
+        <div>
+          {credit.gt(BigNumber.from(0)) ? (
+            <div className="flex w-full flex-col items-start">
+              <div className="pb-6 text-lg font-semibold opacity-80">
+                Choose amount you want to borrow
+              </div>
+              <div className="text-5xl font-bold">
+                {(credit.add(-currentBalance).toNumber() * currBorrowPercent) /
+                  100 /
+                  10 ** 6}
+                <span className="px-2 text-3xl font-bold opacity-60">USDC</span>
+              </div>
+              <div className="flex w-full gap-2 px-1 py-4">
+                <span className="px-2 text-sm">{`0`}</span>
+                <Slider
+                  aria-label="Default"
+                  value={currBorrowPercent}
+                  onChange={(e) => setCurrBorrowPercent(e.target?.value)}
+                />
+                <span className="px-2 text-sm">
+                  {fromBigNumberToMoney(credit.add(-currentBalance))}
+                </span>
+              </div>
+              <div className="text-sm">
+                <span className="">Origination Fee:</span>
+                <span className="pl-2 font-semibold">10 USDC</span>
+              </div>
+              <div className="mb-4 text-sm">
+                <span className="">APY:</span>
+                <span className="pl-2 font-semibold">3.3%</span>
+              </div>
+
+              <Button color="secondary" size={'lg'} onClick={handleBorrow}>
+                Borrow
+              </Button>
+            </div>
+          ) : (
+            <div>
+              {loading && <Loading>Checking...</Loading>}
+              {!loading && (
+                <button
+                  onClick={() => checkCreditLine()}
+                  className="flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
+                >
+                  Check your credit line
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {showPay && (
         <div className="flex w-full flex-col items-start">
           <div className="pb-6 text-lg font-semibold opacity-80">
-            Choose amount you want to borrow
+            Choose amount you want to pay back
           </div>
           <div className="text-5xl font-bold">
-            {(credit.toNumber() * currBorrowPercent) / 100 / 10 ** 6}
+            {(currentBalance.toNumber() * currBorrowPercent) / 100 / 10 ** 6}
             <span className="px-2 text-3xl font-bold opacity-60">USDC</span>
           </div>
           <div className="flex w-full gap-2 px-1 py-4">
@@ -170,36 +281,15 @@ function BorrowSection() {
               value={currBorrowPercent}
               onChange={(e) => setCurrBorrowPercent(e.target?.value)}
             />
-            <span className="px-2 text-sm">{fromBigNumberToMoney(credit)}</span>
+            <span className="px-2 text-sm">
+              {fromBigNumberToMoney(currentBalance)}
+            </span>
           </div>
-          <div className="text-sm">
-            <span className="">Origination Fee:</span>
-            <span className="pl-2 font-semibold">10 USDC</span>
-          </div>
-          <div className="text-sm">
-            <span className="">APY:</span>
-            <span className="pl-2 font-semibold">3.3%</span>
-          </div>
-          <button
-            onClick={handleBorrow}
-            className="mt-6 flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
-          >
-            BORROW
-          </button>
+          <Button color="success" size={'lg'} onClick={handlePayBack}>
+            Pay
+          </Button>
         </div>
-      ) : (
-        <div>
-          {loading && <Loading>Checking...</Loading>}
-          {!loading && (
-            <button
-              onClick={() => checkCreditLine()}
-              className="flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
-            >
-              Check your credit line
-            </button>
-          )}
-        </div>
-      )} */}
+      )}
     </>
   )
 }

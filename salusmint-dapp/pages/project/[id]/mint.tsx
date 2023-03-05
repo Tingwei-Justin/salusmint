@@ -104,20 +104,20 @@ export default function MintPage() {
             alt="nft"
           />
         </div>
-        <div className="relative flex h-96 w-3/5 flex-col items-center border border-black">
+        <div className="relative flex h-96 w-3/5 flex-col items-center border border-white">
           <div className="mt-6 text-center text-3xl font-bold">
             MINT BAYC DENVER (Unofficial)
           </div>
           <div className="flex w-full items-center justify-center gap-8">
             <button
               //   onClick={() => setLoading(true)}
-              className="mt-6 flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
+              className="mt-6 flex w-48 items-center justify-center border border-white px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
             >
               Supply: 10000
             </button>
             <button
               //   onClick={() => setLoading(true)}
-              className="mt-6 flex w-48 items-center justify-center border border-black px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
+              className="mt-6 flex w-48 items-center justify-center border border-white px-6 py-2 font-semibold hover:scale-105 hover:cursor-pointer"
             >
               1 ETH each
             </button>
@@ -128,7 +128,7 @@ export default function MintPage() {
           <div className="flex w-full justify-center gap-2 pt-4">
             <button
               onClick={() => setMintAmount((x) => Math.max(0, x - 1))}
-              className="flex w-20 items-center justify-center border border-black py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
+              className="flex w-20 items-center justify-center border border-white py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
             >
               -
             </button>
@@ -141,7 +141,7 @@ export default function MintPage() {
             />
             <button
               onClick={() => setMintAmount((x) => Math.min(10000, x + 1))}
-              className="flex w-20 items-center justify-center border border-black py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
+              className="flex w-20 items-center justify-center border border-white py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
             >
               +
             </button>
@@ -149,7 +149,7 @@ export default function MintPage() {
 
           <button
             onClick={mint}
-            className="mt-12 flex w-48 items-center justify-center border border-black px-6 py-2 text-xl font-semibold font-semibold hover:scale-105 hover:cursor-pointer"
+            className="mt-12 flex w-48 items-center justify-center border border-white px-6 py-2 text-xl font-semibold hover:scale-105 hover:cursor-pointer"
           >
             MINT
           </button>

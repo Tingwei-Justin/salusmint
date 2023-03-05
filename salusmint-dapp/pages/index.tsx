@@ -8,29 +8,34 @@ export default function Home() {
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <div className="flex min-h-[90vh] w-full max-w-7xl flex-col justify-center">
-        <div className="max-w-7xl text-5xl font-semibold">
-          Serve for Future NFT ecosystem
+        <div className="max-w-7xl text-7xl font-bold">
+          <span className="tracking-wider text-[#81FF88]">Salus</span>Mint
         </div>
 
-        <div className="max-w-6xl pt-10 text-xl opacity-60">
-          SalusMint is the next generation of no code NFT launched platform
-          fully backed by Blue chip DeFi to prevent creators from cashing out
-          all their sale proceeds at once and to foster a thriving community
-          focused on health.
+        <div className="max-w-6xl pt-10 text-2xl tracking-wide opacity-90">
+          Offers a sustainable source of income for both{' '}
+          <span className="font-bold text-[#81FF88]">creators</span> and{' '}
+          <span className="font-bold text-[#81FF88]">holders </span>
+          via{' '}
+          <span className="font-bold text-[#81FF88]">
+            yield generating pools
+          </span>
+          , leading community towards to the{' '}
+          <span className="font-bold text-[#81FF88]">long term succeed</span>
         </div>
 
         <div className="flex gap-4 ">
           <Link
             href={'/new'}
             //   onClick={() => setLoading(true)}
-            className="mt-6 flex w-60 items-center justify-center border border-black px-6 py-2 font-semibold text-black hover:scale-105 hover:cursor-pointer"
+            className="mt-6 flex w-60 items-center justify-center border border-white px-6 py-2 font-semibold text-white hover:scale-105 hover:cursor-pointer"
           >
             Create NFT Collection
           </Link>
           <Link
             href={'/#explore'}
             //   onClick={() => setLoading(true)}
-            className="mt-6 flex w-60 items-center justify-center border border-black px-6 py-2 font-semibold text-black hover:scale-105 hover:cursor-pointer"
+            className="mt-6 flex w-60 items-center justify-center border border-white px-6 py-2 font-semibold text-white hover:scale-105 hover:cursor-pointer"
           >
             Explore
           </Link>
@@ -65,7 +70,7 @@ export default function Home() {
                   />
                 </Link>
                 <div className="absolute bottom-0 w-full">
-                  <div className="flex h-10 w-full items-center bg-black px-2  opacity-60">
+                  <div className="flex h-10 w-full items-center bg-black px-2  opacity-80">
                     <div className="font-bold text-white">
                       Collection Example {idx + 1}
                     </div>

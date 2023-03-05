@@ -7,7 +7,7 @@ interface Props {
 
 const Footer: FC<Props> = ({ className }) => {
   return (
-    <footer className="w-full bg-[#313131] text-white">
+    <footer className="w-full bg-[#101010] text-white ">
       <div className="flex flex-col items-center justify-center gap-4 py-4 text-sm">
         <span className="tracking-widest">
           &copy;2023 ETH denver | #BUIDL FOR FUTURE
