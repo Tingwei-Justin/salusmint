@@ -10,6 +10,10 @@ import Link from 'next/link'
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
+import { POOL } from '@config/constant'
+import { erc20ABI, useAccount, useContractWrite } from 'wagmi'
+import { BigNumber } from 'ethers'
+import { TestERC20 } from '@config/abi'
 
 const HealthIndicatorChart = dynamic(
   () => import('@components/Chart/HealthIndicatorChart'),
@@ -75,6 +79,18 @@ function CollectionPage() {
   const { id: nftAddress, vaultAddress } = router.query
   const [tabs, setTabs] = useState(defaultTabs)
   const [displayType, setDisplayType] = useState(defaultTabs[0].href)
+  const { address } = useAccount()
+  const [transferAmount, setTransferAmount] = useState(BigNumber.from(0))
+
+  const transferConfig = {
+    mode: 'recklesslyUnprepared',
+    address: POOL.poolUnderlyingToken.address as `0x${string}`,
+    chainId: 31337,
+    abi: TestERC20,
+    functionName: 'mint',
+    args: [address, transferAmount],
+  }
+  const { writeAsync: transfer } = useContractWrite(transferConfig)
 
   useEffect(() => {
     const { tab } = router.query
@@ -114,6 +130,16 @@ function CollectionPage() {
         shallow: true,
       }
     )
+  }
+
+  async function handleTransfer() {
+    if (transfer) {
+      await transfer({
+        // ...transferConfig,
+        // args: [address, BigNumber.from(5 * 10 ** 6)],
+      })
+      router.reload()
+    }
   }
 
   return (
@@ -322,23 +348,23 @@ function CollectionPage() {
                       <div className="flex w-full items-center justify-between">
                         <div className="">
                           <div className="text-sm font-bold opacity-80">
-                            Available income
+                            Past income
                           </div>
-                          <div className="text-5xl font-bold">$48,000</div>
+                          <div className="text-5xl font-bold">$38,000</div>
                         </div>
                         <div className="">
                           <div className="text-sm font-bold opacity-80">
                             Next Month Income (Estimated)
                           </div>
-                          <div className="text-5xl font-bold">$12,000</div>
+                          <div className="text-5xl font-bold">$9,800</div>
                         </div>
-                        <Button
+                        {/* <Button
                           color="success"
                           size={'lg'}
                           // onClick={handleBorrow}
                         >
                           Claim
-                        </Button>
+                        </Button> */}
                       </div>
 
                       <div className="text-sm opacity-80">
@@ -390,7 +416,15 @@ function CollectionPage() {
                           rewards from yield generating pool
                         </div>
                       </div>
-                      <Button color="success" size={'lg'} auto>
+                      <Button
+                        color="success"
+                        onClick={() => {
+                          setTransferAmount(BigNumber.from(20 * 10 ** 6))
+                          handleTransfer()
+                        }}
+                        size={'lg'}
+                        auto
+                      >
                         Claim
                       </Button>
                     </div>
@@ -419,7 +453,15 @@ function CollectionPage() {
                         </div>
                       </div>
                       <Button color="success" size={'lg'} auto>
-                        <div className="font-bold">Exit communtiy</div>
+                        <div
+                          className="font-bold"
+                          onClick={() => {
+                            setTransferAmount(BigNumber.from(160 * 10 ** 6))
+                            handleTransfer()
+                          }}
+                        >
+                          Exit communtiy
+                        </div>
                       </Button>
                     </div>
                   </Card.Body>
