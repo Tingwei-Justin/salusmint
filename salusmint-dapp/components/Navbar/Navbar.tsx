@@ -12,22 +12,24 @@
   }
   ```
 */
-import { USDCAddress } from '@config/constant'
-import { Disclosure } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Text } from '@nextui-org/react'
+import { POOL, USDCAddress } from '@config/constant'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { BigNumber } from 'ethers'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { erc20ABI, useAccount, useContract, useSigner } from 'wagmi'
+import { erc20ABI, useAccount, useBalance, useContract, useSigner } from 'wagmi'
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Create', href: '/new', current: false },
   { name: 'Explore', href: '/#explore', current: false },
 ]
+
+const Balance = dynamic(() => import('@components/Balance/index'), {
+  ssr: false,
+})
 
 export default function Example() {
   const [balance, setBalance] = useState(BigNumber.from(0))
@@ -48,11 +50,10 @@ export default function Example() {
       }
       const balance = await contract.balanceOf(address)
       setBalance(balance)
-      // console.log('balance', balance)
+      console.log('balance', balance)
     }
     init()
   }, [contract, signer, address])
-
   return (
     <div className="mx-auto w-full bg-black">
       <div className="relative flex items-center justify-between px-8 py-3">
@@ -86,7 +87,8 @@ export default function Example() {
           ))}
         </div>
         <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-          <ConnectButton />
+          <Balance />
+          <ConnectButton showBalance={false} chainStatus="name" />
         </div>
       </div>
     </div>
