@@ -28,7 +28,15 @@ SalusMint is an NFT launchpad that allowing all proceeds from launch enteres a y
 1. Launch as a NFT launch pad to redefine a fair NFT ecosystem
 2. Integration with more yield-generating protocols
 
+## Summary
+SalusMint offers a revolutionary way to launch NFT, providing creators and holders with a sustainable source of income and aligning creator and holder incentives for long-term success.
 
+
+## Link
+- Deck: https://docs.google.com/presentation/d/1zayDtd0R8A-1cPMaDMyCkfSsO70rv8Z4/edit?usp=sharing&ouid=104915702783954666384&rtpof=true&sd=true
+- Demo video: https://www.youtube.com/watch?v=kPQDr4WC21c
+
+## Detail
 SalusMint is a new project that seeks to bring together the worlds of NFTs and DeFi in a way that benefits both creators and buyers. The project offers a unique approach to NFT launches, with all proceeds from the launch entering a yield-generating pool. This pool provides a sustainable source of income for both creators and holders, and ensures that the incentives of both parties are aligned.
 
 The current NFT market is a zero-sum game, where creators and holders are often at odds with each other. Creators want to make as much money as possible from their NFTs, while buyers are looking to make a quick profit by flipping them. This often leads to rug pulls and other forms of fraud, as creators look to cash out quickly and buyers look for the next hot NFT.
@@ -40,8 +48,6 @@ Buyers are also incentivized to hold onto their NFTs, as they can earn income th
 The use of DeFi in SalusMint is an important aspect of the project. By leveraging composibility of DeFi, SalusMint is able to create a transparent and trustless system that benefits all participants. The yield-generating pool is powered by smart contracts, which ensure that all proceeds are distributed fairly and transparently.
 
 SalusMint is not the first project to combine NFTs and DeFi, but it is one of the most promising. The team behind the project has a deep understanding of both NFTs and DeFi, and is committed to creating a sustainable ecosystem for both creators and buyers.
-
-Overall, SalusMint represents an exciting new direction for the world of NFTs. By creating a more sustainable ecosystem that benefits both creators and buyers, the project has the potential to revolutionize the way that NFTs are created, bought, and sold. If successful, it could pave the way for a new generation of NFT projects that are built on the principles of transparency, fairness, and sustainability.
 
 
 ## Protocol flow charts
