@@ -28,7 +28,16 @@ Overall, SalusMint represents an exciting new direction for the world of NFTs. B
 4. Get USDC address and SalusMint Factory address
 5. copy `huma-contracts-fork/deployment/localhost-deployed-contracts.json` to `pool.ts` DEPLOYED_CONTRACTS
 
-## Deploy Salusmint Core Contracts in Polygam Mumai TestNet
+## Deploy Salusmint Core Contracts in Polygon Mumbai TestNet
+
+| Column 1 | Column 2 | Column 3 |
+| -------- | -------- | -------- |
+| Row 1, Column 1 | Row 1, Column 2 | Row 1, Column 3 |
+| Row 2, Column 1 | Row 2, Column 2 | Row 2, Column 3 |
+
+
+
+
 
 ## Setup SSV Pool for staking
 
