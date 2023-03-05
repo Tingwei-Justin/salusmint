@@ -30,10 +30,15 @@ Overall, SalusMint represents an exciting new direction for the world of NFTs. B
 
 ## Deploy Salusmint Core Contracts in Polygon Mumbai TestNet
 
-| Column 1 | Column 2 | Column 3 |
-| -------- | -------- | -------- |
-| Row 1, Column 1 | Row 1, Column 2 | Row 1, Column 3 |
-| Row 2, Column 1 | Row 2, Column 2 | Row 2, Column 3 |
+| Contracts | Address |
+| -------- | -------- |
+| SmartMintFactory | 0x559A0850f8db394D2F1Bc9947d4200527C0c3D62 |
+| smartMintVault1  | 0x74C2F440CFEED6F9cF1A8955ecFbDB95229E723B |
+| smartMintNFT1  | 0x9102ec0345534e737dD8897bDD2DD83dDba456eb |
+| smartMintVault2  | 0x32F49BAF14d5442b8D4d2295973aE65543fBe2cd |
+| smartMintNFT2  | 0x3230742edc5a169fa546d0b098f3e0b3af1b48c4 |
+
+
 
 
 
