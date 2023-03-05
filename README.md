@@ -1,6 +1,6 @@
 # salusmint
 ## Description
-SalusMint is a new generation of NFT launchpad that offers a sustainable source of income for both creators and holds, via yield generating pools (DeFi solution), therefore aligning the interest of both colelctions and holders for the long term vision of a collection and community.
+SalusMint is the next generation of NFT launchpad that offers a sustainable source of income for both creators and holds, via yield generating pools (DeFi solution), therefore aligning the interest of both colelctions and holders for the long term vision of a collection and community.
 
 ## Problem statement
 Today, the current NFT market is a zero sum game between creators and holders, keeping the NFT ecosystem unsustainable. Rug pulls and quick flips are rampant, because both creators and holders want to make a quick profit at the expense of the other. Ultimately, the incentives around creators and holders are not aligned.
