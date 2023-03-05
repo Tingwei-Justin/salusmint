@@ -21,7 +21,7 @@ export default function Home() {
             yield generating pools
           </span>
           , leading community towards to the{' '}
-          <span className="font-bold text-[#81FF88]">long term succeed</span>
+          <span className="font-bold text-[#81FF88]">long term success</span>
         </div>
 
         <div className="flex gap-4 ">
