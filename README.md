@@ -14,7 +14,7 @@ SalusMint is not the first project to combine NFTs and DeFi, but it is one of th
 Overall, SalusMint represents an exciting new direction for the world of NFTs. By creating a more sustainable ecosystem that benefits both creators and buyers, the project has the potential to revolutionize the way that NFTs are created, bought, and sold. If successful, it could pave the way for a new generation of NFT projects that are built on the principles of transparency, fairness, and sustainability.
 
 
-## Protocal flow charts
+## Protocol flow charts
 
 ![Mint process](./images/flowcharts/Mint.png)
 ![Income yield process](./images/flowcharts/Stream&Borrow.png)
