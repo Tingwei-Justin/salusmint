@@ -1,4 +1,12 @@
 # salusmint
+SalusMint is an NFT Launchpad that all proceeds from the launch enter a yield-generating pool, which offers a sustainable source of income for both creators and holders.
+
+Today, the current NFT market is a zero-sum game between creators and holders, keeping the NFT ecosystem unsustainable. Rug pulls and quick flips are rampant because both creators and holders want to make a quick profit at the expense of the other. Ultimately, the incentives around creators and holders are not aligned.
+
+Creators can gain income through a yield pool and use that income as collateral to obtain a loan from Huma Finance. This can provide them with more resources for their community. Buyers also have the potential to earn income through the yield pool.
+
+
+
 
 ## Deploy Salusmint Core Contracts in local host
 
