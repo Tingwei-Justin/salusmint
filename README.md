@@ -6,7 +6,10 @@ Today, the current NFT market is a zero-sum game between creators and holders, k
 Creators can gain income through a yield pool and use that income as collateral to obtain a loan from Huma Finance. This can provide them with more resources for their community. Buyers also have the potential to earn income through the yield pool.
 
 
+## Protocal flow charts
+
 ![Mint process](./images/flowcharts/Mint.png)
+![Income yield process](./images/flowcharts/Stream&Borrow.png)
 
 ## Deploy Salusmint Core Contracts in local host
 
